@@ -2075,7 +2075,7 @@ def lamp_clean (input_files):
     for sequence_input in input_files:
         removed_in_cleanfile.write('Cleaning File: {0}\n'.format(return_filename(sequence_input.current_input)))
         (cleaned_output_dir, cleaned_output_filename, cleaned_ouput) = check_output(sequence_input, 'Cleaned')
-        lamp_clean_file = open(cleaned_ouput, 'w')
+        bme_clean_file = open(cleaned_ouput, 'w')
         for working_sequence in sequence_reader(sequence_input.current_input).read():
             if len(working_sequence) % 3 == 0:
                 remove_check = False
@@ -2481,7 +2481,7 @@ bme_mrbayes_mcmc_burnin = 0.25
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### General tree variables
-bme_subtree_log_file = 'lamp_subtrees.log'
+bme_subtree_log_file = 'vespa_subtrees.log'
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### General codeML variables
