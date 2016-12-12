@@ -4,7 +4,7 @@ VESPA: Very large-scale Evolutionary and Selective Pressure Analyses
 Thanks for taking an interest in our pipeline. Everything you need to use this software is on this page. 
 We hope you find the resources we provide here useful in getting you set up to analyse and interpret your data.
 
-To reference VESPA:https://peerj.com/preprints/1895/
+To reference VESPA: https://peerj.com/preprints/1895/
 
 The VESPA software is released under the GNU general public license.
 
