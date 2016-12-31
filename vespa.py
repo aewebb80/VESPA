@@ -173,7 +173,7 @@ This phase included for users new to bioinformatics. The phase prepares download
 genomes for homology searching using the two VESPA supported homology search tools:
 BLAST and HMMER.
 
-Commands: clean, ensemble_clean, translate, create_database, gene_selection
+Commands: clean, ensembl_clean, translate, create_database, gene_selection
 ----------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------
