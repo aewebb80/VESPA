@@ -1,11 +1,11 @@
 #!/usr/bin/python
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### __      ________  _____ _____        
-### \ \    / /  ____|/ ____|  __ \ /\    
-###  \ \  / /| |__  | (___ | |__) /  \   
-###   \ \/ / |  __|  \___ \|  ___/ /\ \  
-###    \  /  | |____ ____) | |  / ____ \ 
+### __      ________  _____ _____
+### \ \    / /  ____|/ ____|  __ \ /\
+###  \ \  / /| |__  | (___ | |__) /  \
+###   \ \/ / |  __|  \___ \|  ___/ /\ \
+###    \  /  | |____ ____) | |  / ____ \
 ###     \/   |______|_____/|_| /_/    \_\
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Authors: Andrew E. Webb, Thomas A. Walsh  & Mary J. O'Connell
@@ -18,36 +18,31 @@ def help_message(help_requested):
         command_str = 'Command: {0}'.format(help_requested)
         command_text = '|||||{0}|||||'.format(command_str.center(72, ' '))
         print '\n{0}\n{1}\n{2}'.format(help_seperator, command_text, help_seperator)
-        
+
         if help_requested == 'clean':
             print '''Details: QC filter for downloaded nucleotide sequences and/or genomes.
 Basic usage: vespa.py clean -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files'''
-        
         elif help_requested == 'ensembl_clean':
             print'''Details: QC filter for identifying the longest nucleotide (canonical) transcript
          within an Ensembl nucleotide genome.
 Basic usage: vespa.py ensembl_clean -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files'''
-
         elif help_requested == 'translate':
             print'''Details: Translates nucleotide sequences that passed the QC filter of either clean
          function into amino acid sequences
 Basic usage: vespa.py translate -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files'''
-        
         elif help_requested == 'create_database':
             print'''Details: Concatenates multiple genomes into the single database file.
 Basic usage: vespa.py create_database -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files'''
-        
         elif help_requested == 'gene_selection':
             print '''Details: Searches a sequence database for gene identifiers specified within a
          separate csv file.
 Basic usage: vespa.py gene_selection -input=USR_INPUT -selection_csv=USR_INPUT
 Supported file format(s): -input option: fasta formatted files,
                           -selection_csv option: csv formatted files'''
-
         elif help_requested == 'similarity_groups':
             print '''Details: Construct sequence similarity groups with either non-reciprocal and
             reciprocal connections.
@@ -55,14 +50,12 @@ Basic usage: vespa.py similarity_groups -input=USR_INPUT -format=blast -database
 Supported file format(s): -input option: BLAST tabular and HMMER output files
                           -database option: fasta formatted files
                           -format option: blast or hmmer'''
-
         elif help_requested == 'reciprocal_groups':
             print '''Details: Construct sequence similarity groups with only reciprocal connections.
 Basic usage: vespa.py reciprocal_groups -input=USR_INPUT -format=blast -database=USR_DB
 Supported file format(s): -input option: BLAST tabular and HMMER output files
                           -database option: fasta formatted files
                           -format option: blast or hmmer'''
-
         elif help_requested == 'best_reciprocal_groups':
             print '''Details: Construct sequence similarity groups with only reciprocal connections
          that share the best E-value for each species.
@@ -70,28 +63,24 @@ Basic usage: vespa.py best_reciprocal_groups -input=USR_INPUT -format=blast -dat
 Supported file format(s): -input option: BLAST tabular and HMMER output files
                           -database option: fasta formatted files
                           -format option: blast or hmmer'''
-
         elif help_requested == 'metal_compare':
             third_party = True
             print '''Details: Automates MSA comparison, scoring, and selection using the third-party
          programs MetAl and noRMD.
 Basic usage: vespa.py metal_compare -input=USR_INPUT -compare=USR_INPUT
 Supported file format(s): -input and -compare options: fasta formatted files'''
-
         elif help_requested == 'prottest_setup':
             third_party = True
             print '''Details: Automates the identification the best-fit model of amino acid replacement
          for a protein MSAs using the third-party program ProtTest3.
 Basic usage: vespa.py prottest_setup -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files'''
-
         elif help_requested == 'prottest_reader':
             third_party = True
             print '''Details: Automates the process of reading the output of the third-party program
          ProtTest3.
 Basic usage: vespa.py prottest_reader -input=USR_INPUT
 Supported file format(s): -input option: ProtTest3 output format'''
-
         elif help_requested == 'mrbayes_setup':
             third_party = True
             print '''Details: Simplifies phylogenetic reconstruction using the third-party program MrBayes
@@ -99,50 +88,43 @@ Supported file format(s): -input option: ProtTest3 output format'''
 Basic usage: vespa.py mrbayes_setup -input=USR_INPUT -model_list=MODEL_DATA
 Supported file format(s): -input option: fasta formatted files
                           -model_list prottest_reader supported_output files'''
-
         elif help_requested == 'map_alignments':
             print '''Details: Automates the conversion of protein MSAs to nucleotide (codon) MSAs required
          for codeML.
 Basic usage: vespa.py map_alignments -input=USR_INPUT -database=USR_DB
 Supported file format(s): -input and -database options: fasta formatted files'''
-
         elif help_requested == 'infer_genetree':
             print '''Details: Automates the creation of the corresponding gene tree for a MSA using a
          user-specified species tree.
 Basic usage: vespa.py infer_genetree -input=USR_INPUT -species_tree=USR_INPUT
 Supported file format(s): -input option: fasta formatted files
                           -species_tree option: newick formatted files'''
-
         elif help_requested == 'codeml_setup':
             print '''Details: Automates the creation of the complex codeML directory structure.
 Basic usage: vespa.py setup_codeml -input=USR_INPUT
 Supported file format(s): -input option: fasta formatted files with corresponding
                                          newick formatted files'''
-
         elif help_requested == 'mrbayes_reader':
             print '''Details: Automates the conversion of nexus-formatted phylogenies into the
          newick format.
 Basic usage: vespa.py mrbayes_reader -input=USR_INPUT
 Supported file format(s): -input option: MrBayes converged NEXUS output files'''
-
         elif help_requested == 'create_subtrees':
             print '''Details: Simplifies pruning large multigene phylogenies into smaller
          sub-phylogenies.
 Basic usage: vespa.py create_subtrees -input=USR_INPUT
 Supported file format(s): -input option: newick formatted files'''
-
         elif help_requested == 'create_branch':
             print '''Details: Simplify the creation of the branch-label table required for
          the branch-site models of codeML.
 Basic usage: vespa.py create_branch -input=USR_INPUT
 Supported file format(s): -input option: newick formatted files'''
-
         elif help_requested == 'codeml_reader':
             print '''Details: Parses the complex codeML directory structure and create
          simplified results.
 Basic usage: vespa.py codeml_reader -input=USR_INPUT
-Supported file format(s): -input option: VESPA formmated codeML output files'''    
-        
+Supported file format(s): -input option: VESPA formmated codeML output files'''
+
         if third_party:
             print '\nSee program manual for third-party program citations and additional options\n'
         else:
@@ -152,11 +134,11 @@ Supported file format(s): -input option: VESPA formmated codeML output files'''
     else: 
         print '''VESPA v1.0b - [La]rge-scale [M]olecular evolution and selective pressure [P]ipeline
 Authors: Andrew E. Webb, Thomas A. Walsh & Mary J. O'Connell
-__      ________  _____ _____        
-\ \    / /  ____|/ ____|  __ \ /\    
- \ \  / /| |__  | (___ | |__) /  \   
-  \ \/ / |  __|  \___ \|  ___/ /\ \  
-   \  /  | |____ ____) | |  / ____ \ 
+__      ________  _____ _____
+\ \    / /  ____|/ ____|  __ \ /\
+ \ \  / /| |__  | (___ | |__) /  \
+  \ \/ / |  __|  \___ \|  ___/ /\ \
+   \  /  | |____ ____) | |  / ____ \
     \/   |______|_____/|_| /_/    \_\
 
 ----------------------------------------------------------------------------------
@@ -208,7 +190,7 @@ Commands: map_alignments, infer_genetree, mrbayes_reader, link_input, codeml_set
 |||||                 Phase 5: Selection Analysis Assessment                 |||||
 ----------------------------------------------------------------------------------
 Details: This phase automatically parses the codeML directory structure
-and create simplified summary files 
+and create simplified summary files
 
 Command: codeml_reader
 ----------------------------------------------------------------------------------
@@ -218,12 +200,12 @@ See program manual for additional information.
 
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###   _____ _                         
-###  / ____| |                        
-### | |    | | __ _ ___ ___  ___  ___ 
+###   _____ _
+###  / ____| |
+### | |    | | __ _ ___ ___  ___  ___
 ### | |    | |/ _` / __/ __|/ _ \/ __|
 ### | |____| | (_| \__ \__ \  __/\__ \
-###  \_____|_|\__,_|___/___/\___||___/                                
+###  \_____|_|\__,_|___/___/\___||___/
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### class: sequence - defines base sequence information and has basic functions                                                 ###
@@ -235,17 +217,17 @@ class sequence_data(object):
         self.filename = header
         self.length = len(''.join(sequence))
         self.type = ''
-    
+
     def __len__(self):
         return len(''.join(self.sequence))
-    
+
     def __str__(self):
         prtSeq = ''.join(self.header) + '\n'.join([self.sequence[i:i+60] for i in range(0, len(self.sequence), 60)])
         return prtSeq
-    
+
     def seq_filename (self, definement):
         self.filename = str(definement)
-    
+
     def seq_translate (self):
         codonTbl = {'ATT':'I','ATC':'I','ATA':'I','CTT':'L',
                     'CTC':'L','CTA':'L','CTG':'L','TTA':'L',
@@ -267,14 +249,13 @@ class sequence_data(object):
         self.sequence =  ''.join([codonTbl.get(strSeq[3*n:3*n+3], 'X') for n in range(len(strSeq)//3)])
         self.length = len(self.sequence)
         return self
-    
-    
+
     def seq_revcomp (self):
         from string import maketrans
         strRev = ''.join(self.sequence).strip()[::-1]
         self.sequence = strRev.translate(maketrans('ACTGUBVDHKMRYNSW','TGACAVBHDMKYRNSW'))
         return self
-    
+
     def seq_type (self):
         type_status = False 
         for unique_amino_characters in ['q', 'e', 'i', 'l', 'f', 'p']:
@@ -283,7 +264,7 @@ class sequence_data(object):
                 type_status = True
         if not type_status:
             self.type = 'DNA'
-        
+
     def internal_stop(self):
         def internal_translate(strSeq):
             codonTbl = {'ATT':'I','ATC':'I','ATA':'I','CTT':'L',
@@ -327,11 +308,11 @@ class sequence_reader(object):
     def __init__(self, filename):
         self.filename = filename
         self.type = ''
-        
+
     def sequence_format (self):
         with open(self.filename, 'rU') as unknown_sequence_data:
             format_data = unknown_sequence_data.readline().strip()
-            
+
         list_format_data = format_data.split()
         if len(list_format_data) > 1:
             chk_num_format_data = [current_format_data.isdigit() for current_format_data in list_format_data]
@@ -344,13 +325,12 @@ class sequence_reader(object):
             self.type = 'phylip'
         else:
             self.type = ''
-    
-    
+
     def read (self):
         from collections import defaultdict
         import sys
         sequence_reader.sequence_format(self)
-        
+
         if self.type == 'fasta':
             def sequnce_reader (sequence_file):
                 from itertools import groupby
@@ -361,7 +341,6 @@ class sequence_reader(object):
                     yield header, seq
             for read_header, read_sequence in sequnce_reader(self.filename):
                 yield sequence_data(read_header, read_sequence)
-        
         elif self.type == 'phylip':
             with open(self.filename, 'rU') as phylip_sequence_data:
                 phylip_stats = []
@@ -379,12 +358,11 @@ class sequence_reader(object):
                             phylip_dict[sequence_count] = [phylip_split[0], phylip_split[1]]
                         else:
                             phylip_dict[sequence_count][1] += phylip_sequence_lines.strip()
-                        sequence_count += 1   
+                        sequence_count += 1
             for phylip_key, (phylip_header, phylip_sequence) in phylip_dict.items():
                 sequence_temp = sequence_data('>{0}\n'.format(phylip_header), phylip_sequence)
                 del phylip_dict[phylip_key]
                 yield sequence_temp
-        
         elif self.type == 'nexus':
             with open(self.filename, 'rU') as nexus_sequence_data:
                 nexus_stats = []
@@ -427,7 +405,7 @@ class command_line_data(object):
         if self.input_in_dir:
             self.dir_location = define_location_string.rsplit('/',1)[0]
         self.input_location = define_location_string
-        
+
         #current variables
         self.current_input = define_location_string
         self.current_input_filename = define_location_string
@@ -439,11 +417,11 @@ class command_line_data(object):
         self.current_output_filename = ''
         self.current_output_dir = ''
         self.current_output_singlefile = ''
-        
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###   _____                           _   ______                _   _                 
-###  / ____|                         | | |  ____|              | | (_)                
-### | |  __  ___ _ __   ___ _ __ __ _| | | |__ _   _ _ __   ___| |_ _  ___  _ __  ___ 
+###   _____                           _   ______                _   _
+###  / ____|                         | | |  ____|              | | (_)
+### | |  __  ___ _ __   ___ _ __ __ _| | | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
 ### | | |_ |/ _ \ '_ \ / _ \ '__/ _` | | |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 ### | |__| |  __/ | | |  __/ | | (_| | | | |  | |_| | | | | (__| |_| | (_) | | | \__ \
 ###  \_____|\___|_| |_|\___|_|  \__,_|_| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
@@ -493,7 +471,7 @@ def return_filename_wo_ext(file_path):
         if '.' in return_file:
             return_file = return_file.split('.',1)[0]
     return return_file
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: return_filename:
 ### Details: Returns the filename of the user specified filepath
@@ -590,7 +568,7 @@ def ensembl_infer(query_header):
             if check_species in query_header:
                 return_species = abnormal_ensembl_table[check_species]
     return return_species
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: create_unique_file:
 ### Details: Creates a file, if file already exits a number is added until the filename is unique
@@ -627,11 +605,11 @@ def check_if_input_directory (input_varible):
     else:
         print 'Input file or directory ({0}) does not exist - exiting program'.format(input_varible)
         sys.exit()
-        
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###  _____ _   _       _____  _                    
-### | ____| | | |     |  __ \| |                   
-### | |__ | |_| |__   | |__) | |__   __ _ ___  ___ 
+###  _____ _   _       _____  _
+### | ____| | | |     |  __ \| |
+### | |__ | |_| |__   | |__) | |__   __ _ ___  ___
 ### |___ \| __| '_ \  |  ___/| '_ \ / _` / __|/ _ \
 ###  ___) | |_| | | | | |    | | | | (_| \__ \  __/
 ### |____/ \__|_| |_| |_|    |_| |_|\__,_|___/\___|
@@ -643,12 +621,12 @@ def vespa_codeml_reader (input_files):
     print 'VESPA: CodeML Reader'
     import os, sys, glob
     from collections import defaultdict
-    
+
     def codeml_raw_reader(input_files):
         import subprocess, os
         codeml_reader_output = create_unique_file('codeml_reader.log')
         report_list, return_list = [], []
-        
+
         for raw_codeml_input in input_files:
             omega_position = 0
             split_codeml = raw_codeml_input.current_input.strip().split('/')
@@ -658,7 +636,7 @@ def vespa_codeml_reader (input_files):
             if omega_position != 0:
                 report_list.append(raw_codeml_input.current_input.strip().rsplit('/',omega_position)[0])
         report_list = list(set(report_list))
-        
+
         for orginal_path in report_list:
             report_split = orginal_path.split('/',1)
             codeml_wrapper_check, codeml_wrapper_bin = False, False  
@@ -706,7 +684,7 @@ def vespa_codeml_reader (input_files):
         elif seq_type_apd == 'protein':
             ps_char_seq_apd[int(codeml_matched_site_apd)] = extand_lineage_seq_apd[int(codeml_matched_site)]
         return ps_char_seq_apd
-    
+
     def append_site_data(codeml_matched_site_apd, ps_site_seq_apd, seq_type_apd):
         if seq_type_apd == 'DNA':
             ps_site_seq_apd[int(codeml_matched_site_apd) * 3] = 'N'
@@ -715,13 +693,13 @@ def vespa_codeml_reader (input_files):
         elif seq_type_apd == 'protein':
             ps_site_seq_apd[int(codeml_matched_site_apd)] = 'X'
         return ps_site_seq_apd
-    
+
     global bme_branch_label_table, bme_alignment_path, bme_output_directory
     branch_models = False
-    
+
     sequence_type = ''
     sequence_input_files = []
-    
+
     if bme_branch_label_table:
         if os.path.isfile(bme_branch_label_table):
             branch_models = True
@@ -737,7 +715,7 @@ def vespa_codeml_reader (input_files):
             sys.exit()
     else:
         print 'Branch labels not specified, please include the option: -label_table=USR_TBL. Only site models alignments will be created'
-    
+
     if bme_alignment_path:
         if check_if_input_directory(bme_alignment_path):
             for path, sub_dirs, file_list in os.walk(bme_alignment_path):
@@ -749,7 +727,7 @@ def vespa_codeml_reader (input_files):
     else:
         print 'Alignments path not specified, please use -alignment_path='
         sys.exit()
-    
+
     report_files = codeml_raw_reader(input_files)
     for sequence_input in sequence_input_files:
         sequence_type, current_sequence_file = '', return_filename_wo_ext(sequence_input)
@@ -813,9 +791,9 @@ def vespa_codeml_reader (input_files):
                                 codeml_alignment.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###  _  _   _   _       _____  _                    
-### | || | | | | |     |  __ \| |                   
-### | || |_| |_| |__   | |__) | |__   __ _ ___  ___ 
+###  _  _   _   _       _____  _
+### | || | | | | |     |  __ \| |
+### | || |_| |_| |__   | |__) | |__   __ _ ___  ___
 ### |__   _| __| '_ \  |  ___/| '_ \ / _` / __|/ _ \
 ###    | | | |_| | | | | |    | | | | (_| \__ \  __/
 ###    |_|  \__|_| |_| |_|    |_| |_|\__,_|___/\___|
@@ -827,7 +805,7 @@ def vespa_branch_table(input_files):
     print 'VESPA: Branch Table Creator'
     import os, sys, dendropy, re, copy
     from collections import defaultdict
-    
+
     def select_subtree(sent_tree):
         pre_edited_tree = dendropy.Tree.get_from_string(sent_tree,"newick")
         finished_node_selection = False
@@ -860,7 +838,7 @@ def vespa_branch_table(input_files):
         return_list = []
         while not finished_leaf_selection:
             user_selected_leafs = raw_input('Please select a leaf (taxa) for selection (if mutiple, seperate with comma): ')
-            leaf_list = [current_leaf.strip() for current_leaf in user_selected_leafs.split(',')]         
+            leaf_list = [current_leaf.strip() for current_leaf in user_selected_leafs.split(',')]
             if len(leaf_list) == len(list(set(leaf_list) & set(sent_taxa))):
                 user_confirm = raw_input('Leaf(s) {0} found. Please confirm (y / n): '.format(', '.join(leaf_list)))
                 if user_confirm.lower().startswith('y'):
@@ -877,19 +855,19 @@ def vespa_branch_table(input_files):
             for pos, matched_nodes in enumerate([match.end() for match in re.finditer('\)', sent_tree)][::-1]):
                 labeler.insert(matched_nodes,str(pos))
             return ''.join(labeler) + ';'
-        
+
         branch_file = create_unique_file('branch_table.txt')
-        
+
         saved_leafs = []
         saved_braches = []
         data_tree = dendropy.Tree.get_from_path(species_tree.current_input,"newick")
         original_tree = data_tree.as_string(schema="newick")
         original_taxa = [str(taxa_ids).replace("'",'') for taxa_ids in data_tree.taxon_namespace]
-        
+
         screen_tree = dendropy.Tree.get_from_string(tree_labeler(original_tree),"newick")
         screen_tree.print_plot(show_internal_node_labels=True)
         screen_string = screen_tree.as_string(schema="newick")
-        
+
         command_dict = {'0':'Finished', '1':'Species Selection', '2':'Ancestral Lineage Selection'}
         finished_selection = False
         while not finished_selection:
@@ -927,11 +905,11 @@ def vespa_map_protein_gaps(input_files):
             return sequence[:-3]
         else:
             return sequence
-    
+
     if not bme_sequence_database_location:
         print 'Sequence database not found'
         sys.exit()
-        
+
     for sequence_input in input_files:
         (mapped_output_directory, mapped_output_filename, mapped_output_path) = check_output(sequence_input, 'Map_Gaps')
         for working_sequence in sequence_reader(sequence_input.current_input).read():
@@ -945,13 +923,13 @@ def vespa_map_protein_gaps(input_files):
             protein_map[working_sequence.header] = amino_acid_positions
             alignment_map[working_sequence.header] = [mapped_output_path, len(working_sequence) * 3, len(working_sequence.sequence.replace('-','')) * 3]
             alignment_counter[mapped_output_path].append(working_sequence.header)
-       
+
     for mapped_alignments in alignment_counter.keys():
         try:
             with open(mapped_alignments): os.remove(mapped_alignments)
         except IOError:
             pass
-        
+
     verify_database = False
     for genome_sequence in sequence_reader(bme_sequence_database_location).read():
         if not verify_database:
@@ -973,7 +951,7 @@ def vespa_map_protein_gaps(input_files):
             else:
                 print 'Sequence length differences identified, please verify that the protein sequences have not been altered since translation'
                 sys.exit()
-           
+
     for alignment_files in alignment_counter.keys():
         written_header_list = []
         with open(alignment_files) as alignment_data:
@@ -1050,7 +1028,7 @@ def vespa_infer_genetree (input_files):
                                 else:
                                     print 'Duplication detected: {0}. Please check files'.format(working_sequence.header.strip()[1:])
                                     error_log.write('Duplication detected: {0}. Please check files\n'.format(working_sequence.header.strip()[1:]))
-                            else:  
+                            else:
                                 taxa_check[working_sequence.header.split('|')[0][1:]] = working_sequence.header.strip()[1:]
                         else:
                             print 'Non-tree species detected: {0}. Please check files'.format(working_sequence.header.strip()[1:])
@@ -1072,7 +1050,7 @@ def vespa_infer_genetree (input_files):
                             os.makedirs(sub_output_path)
                         shutil.copy(alignment_input.current_input,sub_output_path)
                         tree_file = open('{0}/{1}.tre'.format(sub_output_path,current_filename), 'w')
-                        tree_file.write(pruned_tree)    
+                        tree_file.write(pruned_tree)
                         tree_file.close()
                     else:
                         error_log.write('Error pruning: {0}.tre\n'.format(remove_extension(alignment_input.current_input)))
@@ -1113,7 +1091,7 @@ def vespa_link_input(input_files):
                                 alignment_files.append(os.path.join(path, files))
                 else:
                     alignment_files.append(bme_alignment_path)
-                
+
                 for alignment_input in alignment_files:
                     alignment_taxa = []
                     if verify_alignment(alignment_input):
@@ -1136,11 +1114,11 @@ def vespa_link_input(input_files):
                     else:
                         print 'Unaligned seqeunces detected in: {0}'.format(return_filename(alignment_input))
                         error_log.write('Unaligned seqeunces detected in: {0}\n'.format(return_filename(alignment_input)))
-        error_log.close()   
+        error_log.close()
     else:
         print 'Alignment directory not specified, please include the option: -alignment_path=USR_DIR'
         sys.exit()
-                
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_codeml_setup:
 ### Details: Takes combined alignment and tree data and prepares the data for Codeml
@@ -1153,7 +1131,7 @@ def vespa_codeml_setup(input_files):
     taskfarm_log = create_unique_file('codeml_taskfarm.txt')
     branch_models = False
     alignment_found_check, tree_found_check = False, False
-    
+
     if bme_branch_label_table:
         if os.path.isfile(bme_branch_label_table):
             branch_models = True
@@ -1173,7 +1151,7 @@ def vespa_codeml_setup(input_files):
 
     for alignment_input in input_files:
         if verify_sequence_file(alignment_input.current_input) != '':
-            species_convert = defaultdict(list)                       
+            species_convert = defaultdict(list)
             if verify_alignment(alignment_input.current_input):
                 alignment_found_check = True
                 taxa_list = []
@@ -1213,7 +1191,7 @@ def vespa_codeml_setup(input_files):
                                         mrca_tree = dendropy.Tree(working_tree)
                                         mrca_tree.retain_taxa(mrca_leafs)
                                         mrca_newick = mrca_tree.as_string(schema="newick", suppress_rooting=True).strip().replace(';','')
-                                        if set(mrca_leaf_taxa) == set(species_convert[species]):                                      
+                                        if set(mrca_leaf_taxa) == set(species_convert[species]):
                                             label_tree = original_tree.as_string(schema="newick", suppress_rooting=True)
                                             label_tree = label_tree.replace("'",'').replace(mrca_newick.replace("'",''), mrca_newick.replace("'",'') + "'#1'")
                                             tree_file = open(tree_file_name, 'w')
@@ -1223,7 +1201,7 @@ def vespa_codeml_setup(input_files):
                                         else:
                                             print 'Unable to label: {0}. Additional genes present'.format(tree_file_name)
                                             error_log.write('Unable to label: {0}. Additional genes present\n'.format(tree_file_name))
-                                        
+
                                         for gene_conversions in species_convert[species]:
                                             paralog_file_name = '{0}_{1}.tre'.format(remove_extension(tree_input), gene_conversions.split('|')[1].strip())
                                             label_tree = original_tree.as_string(schema="newick", suppress_rooting=True)
@@ -1335,11 +1313,11 @@ def vespa_codeml_setup(input_files):
                                     error_string = error_string[0].upper() + error_string[1:]
                                     print error_string
                                     error_log.write('Error running GenerateCodemlWorkspace.pl.\n')
-                                    error_log.write('Error Reported: {0}.\n'.format(error_string))   
+                                    error_log.write('Error Reported: {0}.\n'.format(error_string))
                                 else:
                                     print 'Error running GenerateCodemlWorkspace.pl. Please check log file for details.'
                                     error_log.write('Error running GenerateCodemlWorkspace.pl.\n')
-                                    error_log.write('{0}.\n'.format(wrapper_error))    
+                                    error_log.write('{0}.\n'.format(wrapper_error))
                         else:
                             print 'Error running GenerateCodemlWorkspace.pl, please confirm that the script and all modules are installed.'
                             error_log.write('Error running GenerateCodemlWorkspace.pl, please confirm that the script and all modules are installed.\n')
@@ -1369,11 +1347,11 @@ def vespa_codeml_setup(input_files):
                                     error_string = error_string[0].upper() + error_string[1:]
                                     print error_string
                                     error_log.write('Error running GenerateCodemlWorkspace.pl.\n')
-                                    error_log.write('Error Reported: {0}.\n'.format(error_string))   
+                                    error_log.write('Error Reported: {0}.\n'.format(error_string))
                                 else:
                                     print 'Error running GenerateCodemlWorkspace.pl. Please check log file for details.'
                                     error_log.write('Error running GenerateCodemlWorkspace.pl.\n')
-                                    error_log.write('{0}.\n'.format(wrapper_error))   
+                                    error_log.write('{0}.\n'.format(wrapper_error))
                         else:
                             print 'Error running GenerateCodemlWorkspace.pl, please confirm that the script and all modules are installed.'
                             error_log.write('Error running GenerateCodemlWorkspace.pl, please confirm that the script and all modules are installed.\n')
@@ -1397,7 +1375,7 @@ def vespa_subtrees(input_files):
     print 'VESPA: Create SubTrees'
     import os, sys, dendropy, re
     from collections import defaultdict
-    
+
     class nodes_picker_data(object):
         def __init__(self, current_tree, log_data):
             self.job_name = current_tree.strip()
@@ -1407,7 +1385,7 @@ def vespa_subtrees(input_files):
             self.edited_tree = log_data[2]
             self.outgroup_request = True
             self.outgroups = []
-            
+
         def __str__(self):
             return '#' + self.job_name + '\nEdit_Method:' + self.requested_command + '\nOrignal_Tree:' + self.original_tree + '\nEdited_Tree:' + self.edited_tree + '\nOutgroup(s):' + ', '.join(self.outgroups) + '\n'
 
@@ -1467,13 +1445,13 @@ def vespa_subtrees(input_files):
                     tree_to_modify.edited_tree = edited_tree_string.strip()
 
     def current_tree_user_request(requesting_job):
-        
+
         def tree_labeler(unlabeled_tree):
             labeled_tree = list(unlabeled_tree.original_tree)
             for pos, matched_nodes in enumerate([match.end() for match in re.finditer('\)', unlabeled_tree.original_tree)][::-1]):
                 labeled_tree.insert(matched_nodes,str(pos))
             unlabeled_tree.labeled_tree = ''.join(labeled_tree)
-            
+
         def command_reqeust(command_job):
             command_dict = {'1':'Subtree Selection', '2':'Node Removal', '3':'Leaf (Taxa) Removal', '4':'Keep Original'}
             while not command_job.requested_command:
@@ -1494,7 +1472,7 @@ def vespa_subtrees(input_files):
                         elif command_job.requested_command == 'Keep Original':
                             command_job.job_status = 'Finished'
                             command_job.edited_tree = command_job.original_tree
-                        
+
         def outgroup_reqeust(command_job):
             taxa_tree = dendropy.Tree.get_from_string(command_job.original_tree,"newick")
             taxa_list = [str(taxa_ids).replace("'",'') for taxa_ids in taxa_tree.taxon_namespace]
@@ -1512,23 +1490,23 @@ def vespa_subtrees(input_files):
                                 print 'Unknown outgroup detected'
                 else:
                     command_job.outgroup_request = False
-                    
+
         tree_labeler(requesting_job)
         screen_tree = dendropy.Tree.get_from_string(requesting_job.labeled_tree,"newick")
-        screen_tree.print_plot(show_internal_node_labels=True) 
+        screen_tree.print_plot(show_internal_node_labels=True)
         print 'Current Tree: ' + requesting_job.job_name + '\n'
         print 'Possible actions\n____________________\n1. Subtree Selection\n2. Node Removal\n3. Leaf (Taxa) Removal\n4. Keep Original\n'
         command_reqeust(requesting_job)
-        if requesting_job.requested_command != 'Keep Original': 
+        if requesting_job.requested_command != 'Keep Original':
             outgroup_reqeust(requesting_job)
-    
+
     global bme_sequence_database_location, bme_output_directory
     if not bme_sequence_database_location:
         print 'Sequence database not found'
         sys.exit()
-    
+
     check_output_dir('Subtrees')
-        
+
     current_log_data = []
     if os.path.isfile(bme_subtree_log_file):
         current_log_data = np_log_reader(bme_subtree_log_file)
@@ -1551,7 +1529,7 @@ def vespa_subtrees(input_files):
             current_log_data.append(current_tree)
             new_log.write(str(current_tree))
         new_log.close()
-    
+
     sequence_table = defaultdict(list)
     for tree_data in current_log_data:
         sequence_filename = '{0}/{1}.{2}'.format(bme_output_directory, return_filename_wo_ext(tree_data.job_name), return_extension(bme_sequence_database_location))
@@ -1569,15 +1547,15 @@ def vespa_subtrees(input_files):
     for working_sequence in sequence_reader(bme_sequence_database_location).read():
         for seqeunce_keys in sequence_table.keys():
             if seqeunce_keys in working_sequence.header:
-                for current_sequence_file in sequence_table[seqeunce_keys]: 
+                for current_sequence_file in sequence_table[seqeunce_keys]:
                     sequence_output = open(current_sequence_file, 'a')
                     sequence_output.write(str(working_sequence) + '\n')
                     sequence_output.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###  ____          _   _____  _                    
-### |___ \        | | |  __ \| |                   
-###   __) |_ __ __| | | |__) | |__   __ _ ___  ___ 
+###  ____          _   _____  _
+### |___ \        | | |  __ \| |
+###   __) |_ __ __| | | |__) | |__   __ _ ___  ___
 ###  |__ <| '__/ _` | |  ___/| '_ \ / _` / __|/ _ \
 ###  ___) | | | (_| | | |    | | | | (_| \__ \  __/
 ### |____/|_|  \__,_| |_|    |_| |_|\__,_|___/\___|
@@ -1591,7 +1569,7 @@ def vespa_metAl_compare (input_files):
     from subprocess import Popen, PIPE
     import sys, shutil
     global bme_metAl_compare_files, bme_metAl_compare_dir
-    
+
     def check_noRMD(location_list):
         noRMD_values = {}
         for pos, alingment_files in enumerate(location_list):
@@ -1618,7 +1596,7 @@ def vespa_metAl_compare (input_files):
                 print 'Error running noRMD. Please confirm the program is installed'
                 sys.exit(0)
         return noRMD_values
-    
+
     def scoreMetAl (sent_compare_data, sent_output_dir):
         global bme_metAl_cutoff
         for alignment_ID, alignment_locations in sent_compare_data.items():
@@ -1636,7 +1614,7 @@ def vespa_metAl_compare (input_files):
                     except:
                         pass
                 if metal_program_check:
-                #metAl_program_call = Popen(['metal', alignment_locations[0], alignment_locations[1]], stdout=PIPE, stderr=PIPE)
+                    metAl_program_call = Popen(['metal', alignment_locations[0], alignment_locations[1]], stdout=PIPE, stderr=PIPE)
                     metAl_output, metAl_error = metAl_program_call.communicate()
                     if not metAl_error:
                         split_metAl = metAl_output.strip().split('= ')
@@ -1649,14 +1627,14 @@ def vespa_metAl_compare (input_files):
                             if returned_values_dict[alignment_compare[0]] == returned_values_dict[alignment_compare[1]]:
                                 metal_compare_results.write('{0},{1},{2},{3},{4},{5}\n'.format(alignment_ID, split_metAl[0].strip(), split_metAl[1], returned_values_dict[alignment_compare[0]], returned_values_dict[alignment_compare[1]], alignment_locations[0]))
                                 shutil.copy(alignment_locations[0], sent_output_dir)
-                           
+
                             elif returned_values_dict[alignment_compare[0]] > returned_values_dict[alignment_compare[1]]:
                                 if alignment_compare[0] == alignment_locations[0]:
                                     metal_compare_results.write('{0},{1},{2},{3},{4},{5}\n'.format(alignment_ID, split_metAl[0].strip(), split_metAl[1], returned_values_dict[alignment_compare[0]], returned_values_dict[alignment_compare[1]], alignment_compare[0]))
                                 if alignment_compare[1] == alignment_locations[0]:
                                     metal_compare_results.write('{0},{1},{2},{3},{4},{5}\n'.format(alignment_ID, split_metAl[0].strip(), split_metAl[1], returned_values_dict[alignment_compare[1]], returned_values_dict[alignment_compare[0]], alignment_compare[0]))
                                 shutil.copy(alignment_compare[0], sent_output_dir)
-                        
+
                             elif returned_values_dict[alignment_compare[0]] < returned_values_dict[alignment_compare[1]]:
                                 if alignment_compare[0] == alignment_locations[0]:
                                     metal_compare_results.write('{0},{1},{2},{3},{4},{5}\n'.format(alignment_ID, split_metAl[0].strip(), split_metAl[1], returned_values_dict[alignment_compare[0]], returned_values_dict[alignment_compare[1]], alignment_compare[1]))
@@ -1683,13 +1661,13 @@ def vespa_metAl_compare (input_files):
             compare_dict[return_filename_wo_ext(sequence_input.current_input)].append(sequence_input.current_input)
         else:
             print return_filename(sequence_input.current_input) + ': Not an alignment file'
-            
+
     for sequence_compare_input in bme_metAl_compare_files:
         if verify_alignment(sequence_compare_input):
             compare_dict[return_filename_wo_ext(sequence_compare_input)].append(sequence_compare_input)
         else:
             print return_filename(sequence_compare_input) + ': Not an alignment file'
-    
+
     scoreMetAl(compare_dict, metAl_output_dir)
     metal_compare_results.close()
 
@@ -1706,7 +1684,7 @@ def vespa_setup_prottest(input_files):
             shutil.copy(sequence_input.current_input, prottest_output_dir)
             prottest_file.write('java -jar prottest.jar -i ' + prottest_output + ' -o ' + prottest_output_dir + '/' + remove_extension(prottest_output_filename) + '.models -all-distributions\n')
         else:
-            print return_filename(sequence_input) + ': Not an alignment file' 
+            print return_filename(sequence_input) + ': Not an alignment file'
     prottest_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
@@ -1714,7 +1692,7 @@ def vespa_setup_prottest(input_files):
 ### Details: Reads prottest output and creates generic model output (best/supported by MrBayes)
 def vespa_prottest_reader (input_files):
     print 'VESPA: ProtTest Results Reader'
-        
+
     def protest_verify(protest_output):
         verify_model = False
         alignment_file = ''
@@ -1729,7 +1707,7 @@ def vespa_prottest_reader (input_files):
                     if 'Alignment file' in model_lines:
                         alignment_file = return_filename(model_lines.split(':')[-1].strip())
         return alignment_file
-    
+
     def protest_output_reader(protest_output):
         return_best_model, return_best_supported_model = ('', '')
         with open(protest_output) as model_file:
@@ -1760,7 +1738,7 @@ def vespa_prottest_reader (input_files):
             report_best_supported_models.write(alignment_input + ',' + '+'.join(best_supported_model) + '\n')
     report_best_models.close()
     report_best_supported_models.close()
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_setup_mrbayes:
 ### Details: Reads create Nexus files for MrBayes given fasta files and prottest supported file
@@ -1780,14 +1758,13 @@ def vespa_setup_mrbayes (input_files):
         current_sequence_position = 0
         while current_sequence_position < sequence_length:
             for alignment_seqeunce in alignment_list:
-                alignment_header = alignment_seqeunce.header.strip()[1:] 
+                alignment_header = alignment_seqeunce.header.strip()[1:]
                 nexus_file.write(alignment_header + (' ' * (22 - len(alignment_header))) + ' '.join([alignment_seqeunce.sequence[seqeunce_block:seqeunce_block + 20] for seqeunce_block in range(current_sequence_position, current_sequence_position + 100, 20)]) + '\n')
             current_sequence_position += 100
             nexus_file.write('\n')
         nexus_file.write('\n'.join([';', 'END;\n']))
         nexus_file.close()
-    
-    
+
     def convert_for_mrbayes (orginal_model):
         if '+' in orginal_model:
             command_list = orginal_model.split('+')
@@ -1796,26 +1773,22 @@ def vespa_setup_mrbayes (input_files):
         convert_model = {'Dayhoff':'dayhoff', 'JTT':'jones', 'Blosum62':'blosum', 'VT':'vt','WAG':'wag'}
         convert_options = {'I':'propinv', 'G':'gamma', 'IG':'invgamma', '':'equal'}
         return convert_model[command_list[0]], convert_options[''.join(command_list[1:])]
-    
-    
+
     if bme_supported_model_list:
         supported_model_dict = {}
         with open(bme_supported_model_list) as model_data:
             for model_lines in model_data:
                 model_split = model_lines.strip().split(',')
                 supported_model_dict[model_split[0]] = model_split[1]
-        
         for sequence_input in input_files:
             if verify_alignment(sequence_input.current_input):
                 if supported_model_dict.has_key(return_filename(sequence_input.current_input)):
                     mrbayes_lines = ['\nbegin mrbayes;', 'log start filename=Logs/' + return_filename_wo_ext(sequence_input.current_input) + '.log replace;', 'set autoclose=yes;']
                     (mrbayes_output_dir, mrbayes_output_filename, mrbayes_output) = check_output(sequence_input, 'MrBayes_Setup')
-                    
                     model_input, rate_input = convert_for_mrbayes(supported_model_dict[return_filename(sequence_input.current_input)])
                     mrbayes_lines.extend(['lset applyto=(all) rates=' + rate_input + ';', 'prset aamodelpr=fixed(' + model_input + ');',
                                         'mcmcp ngen={0} printfreq=2000 samplefreq=200 nchains={1} temp={2} savebrlens=yes relburnin=yes burninfrac={3};'.format(bme_mrbayes_mcmc_gen, bme_mrbayes_mcmc_chains, bme_mrbayes_mcmc_temp, bme_mrbayes_mcmc_burnin),
                                         'mcmc;', 'sumt;', 'sump;', 'log stop;', 'end;'])
-
                     nexus_sequence_input = []
                     for working_sequence in sequence_reader(sequence_input.current_input).read():
                         if len(working_sequence.header) > 22:
@@ -1824,23 +1797,21 @@ def vespa_setup_mrbayes (input_files):
                                 print 'Warning: Sequence headers too long for NEXUS format - Editing headers for length (Manual editing beforehand is recommended)'
                             working_sequence.header = '{0}\n'.format(working_sequence.header[:22])
                         nexus_sequence_input.append(working_sequence)
-                    
                     coverted_filename = '{0}.nex'.format(remove_extension(mrbayes_output))
                     format_nexus(nexus_sequence_input, coverted_filename)
                     append_mrbayes_block = open(coverted_filename, 'a')
                     append_mrbayes_block.write('\n'.join(mrbayes_lines))
                     append_mrbayes_block.close()
-                        
     else:
         print 'No ProtTest model table specified. Please specify using -model_table='
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###  ___            _   _____  _                    
-### |__ \          | | |  __ \| |                   
-###    ) |_ __   __| | | |__) | |__   __ _ ___  ___ 
+###  ___            _   _____  _
+### |__ \          | | |  __ \| |
+###    ) |_ __   __| | | |__) | |__   __ _ ___  ___
 ###   / /| '_ \ / _` | |  ___/| '_ \ / _` / __|/ _ \
 ###  / /_| | | | (_| | | |    | | | | (_| \__ \  __/
-### |____|_| |_|\__,_| |_|    |_| |_|\__,_|___/\___|                                               
+### |____|_| |_|\__,_| |_|    |_| |_|\__,_|___/\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
@@ -1860,7 +1831,7 @@ def vespa_setup_reciprocal_input(input_files):
             if csv_entries in working_sequence.header:
                 reciprocal_output.write(str(working_sequence) + '\n')
     reciprocal_output.close()
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Functions: create_similarity_groups
 ### Details: create_similarity_groups: Creates connected components and creates sequence files
@@ -1882,14 +1853,14 @@ def create_similarity_groups(graph_data):
                 current_mergers.append(query)
             merge_data = current_mergers
         return merge_data
-    
+
     import os
-    from collections import defaultdict    
-    
+    from collections import defaultdict
+
     global bme_output_directory, bme_sequence_database_location
     sequence_table = defaultdict(str)
     check_output_dir('Similarity_Groups')
-    
+
     merged_graph_data = merge_groups(graph_data)
     total_number_of_files = len(str(len(merged_graph_data)))
     for file_counter, sequence_list in enumerate(merged_graph_data):
@@ -1906,7 +1877,7 @@ def create_similarity_groups(graph_data):
             sequence_output = open(sequence_table.pop(working_sequence.header[1:].strip()), 'a')
             sequence_output.write(str(working_sequence) + '\n')
             sequence_output.close()
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Functions: assign_edges
 ### Details: assign_edges: Checks for thresholds and assigns edges using the correct format template
@@ -1915,13 +1886,13 @@ def assign_connections (assignment_graph, assign_data):
     global blast_alignment_length_warn, hmmer_percent_identity_warn
     pass_thresholds = True
     assign_e_value, assign_percent_identity, assign_alignment_length = (False, False, False)
-    
+
     if bme_similarity_data_format == 'blast':
         assign_e_value, assign_percent_identity = (float(assign_data[10]), float(assign_data[2]))
     if bme_similarity_data_format == 'hmmer':
         assign_e_value = float(assign_data[6])
         assign_alignment_length = float(assign_data[2]) / float(assign_data[5])
-    
+
     if bme_similarity_e_value_cutoff:
         if float(bme_similarity_e_value_cutoff) < assign_e_value:
             pass_thresholds = False
@@ -1946,12 +1917,11 @@ def assign_connections (assignment_graph, assign_data):
             assignment_graph[(assign_data[1],assign_data[0])] = True
         else:
             assignment_graph[(assign_data[0],assign_data[1])] = False
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Functions: vespa_best_reciprocal_similarity_groups
 ### Details: Identifies best reciprocals between species
 def vespa_best_reciprocal_similarity_groups(input_files):
-    
     def format_splitter(unsplit_similarity_line, similarity_format):
         return_line = []
         if similarity_format == 'blast':
@@ -1959,7 +1929,7 @@ def vespa_best_reciprocal_similarity_groups(input_files):
         if similarity_format == 'hmmer':
             return_line = unsplit_similarity_line.strip().split()
         return return_line
-    
+
     def return_compare_data(umcompared_line, similarity_format):
         return_query_sequence, return_query_species  = '', ''
         return_subject_sequence, return_subject_species  = '', ''
@@ -1971,10 +1941,10 @@ def vespa_best_reciprocal_similarity_groups(input_files):
         if similarity_format == 'hmmer':
             pass
         return  return_query_sequence, return_query_species, return_subject_sequence, return_subject_species, return_e_value
-    
+
     from collections import defaultdict
     global bme_similarity_data_format
-    
+
     print 'VESPA: Best-Reciprocal Groups'
     reciprocality_table = defaultdict(dict)
     reciprocality_graph = {}
@@ -1997,19 +1967,18 @@ def vespa_best_reciprocal_similarity_groups(input_files):
                 if reciprocality_table[query_sequence].has_key(subject_species):
                     if reciprocality_table[query_sequence][subject_species][0] == subject_sequence:
                         assign_connections(reciprocality_graph, split_lines)
-    
+
     sub_graph = []
     for connection, reciprocality_confirmation in reciprocality_graph.items():
         if reciprocality_confirmation:
             sub_graph.append(set(connection))
     reciprocality_graph.clear()
     create_similarity_groups(sub_graph)
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Functions: vespa_similarity_groups
 ### Details: Identifies either simple or reciprocal connections within file
 def vespa_similarity_groups(input_files, reciprocality_check):
-    
     def format_splitter(unsplit_similarity_line, similarity_format):
         return_line = []
         if similarity_format == 'blast':
@@ -2017,7 +1986,7 @@ def vespa_similarity_groups(input_files, reciprocality_check):
         if similarity_format == 'hmmer':
             return_line = unsplit_similarity_line.strip().split()
         return return_line
-    
+
     def test_selfhit(check_line, similarity_format):
         return_check = True
         if similarity_format == 'blast':
@@ -2026,21 +1995,21 @@ def vespa_similarity_groups(input_files, reciprocality_check):
         if similarity_format == 'hmmer':
             pass
         return return_check
-    
+
     if reciprocality_check:
         print 'VESPA: Reciprocal Groups'
     else:
         print 'VESPA: Similarity Groups'
-        
+
     global bme_similarity_data_format
     reciprocality_graph = {}
     for similarity_file in input_files:
         with open(similarity_file.current_input) as similarity_data:
             for similarity_lines in similarity_data:
                 split_lines = format_splitter(similarity_lines, bme_similarity_data_format)
-                if test_selfhit(split_lines, bme_similarity_data_format):     
+                if test_selfhit(split_lines, bme_similarity_data_format):
                     assign_connections(reciprocality_graph, split_lines)
-    
+
     if not reciprocality_check:
         graph = []
         for connection in reciprocality_graph.keys():
@@ -2055,12 +2024,10 @@ def vespa_similarity_groups(input_files, reciprocality_check):
         reciprocality_graph.clear()
         create_similarity_groups(sub_graph)
 
-
-
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###  __     _     _____  _                    
-### /_ |   | |   |  __ \| |                   
-###  | |___| |_  | |__) | |__   __ _ ___  ___ 
+###  __     _     _____  _
+### /_ |   | |   |  __ \| |
+###  | |___| |_  | |__) | |__   __ _ ___  ___
 ###  | / __| __| |  ___/| '_ \ / _` / __|/ _ \
 ###  | \__ \ |_  | |    | | | | (_| \__ \  __/
 ###  |_|___/\__| |_|    |_| |_|\__,_|___/\___|
@@ -2096,7 +2063,7 @@ def vespa_clean (input_files):
                 removed_in_cleanfile.write('Gene removed - Abnormal sequence length: {0}'.format(working_sequence.header))
         bme_clean_file.close()
     removed_in_cleanfile.close()
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_clean_ensembl:
 ### Details: Cleans ensembl genome, returns longest transcripts divisible by three
@@ -2211,14 +2178,14 @@ def vespa_create_database (input_files):
         if assign_filename:
             return create_unique_file(assign_filename)
         else:
-            return create_unique_file('database.fas')  
-    
+            return create_unique_file('database.fas')
+
     print 'VESPA: Creating Database'
     global bme_format_blast_database, bme_output_filename
     import subprocess
     sequence_type = ''
     database_created = False
-    
+
     for sequence_input in input_files:
         if not database_created:
             bme_database_file = assign_database_filename(bme_output_filename)
@@ -2241,7 +2208,7 @@ def vespa_create_database (input_files):
                 print 'Error with makeblastdb function. Aborting format'
         except:
             print 'Cannot locate makeblastdb function. Aborting format'
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_individual_sequences:
 ### Details: Returns single files of sequences in the specified filepath
@@ -2261,12 +2228,12 @@ def vespa_individual_sequences (input_files):
             if header_characters.isalnum():
                 return_seq_filename += header_characters
         return return_seq_filename
-        
+
     import os
     print 'VESPA: Creating Individual Sequences'
     global bme_output_directory
     directory_created = False
-    
+
     for sequence_input in input_files:
         if not directory_created:
             (individual_output_dir, individual_output_filename, individual_output) = check_output(sequence_input, 'Individual')
@@ -2288,18 +2255,18 @@ def vespa_split_in_groups (input_files):
     print 'VESPA: Creating sequence groups'
     global bme_split_number_in_groups, bme_output_directory
     total_sequences, total_files, sequence_counter, group_counter = 0, 0, 0, 0
-    
+
     for sequence_input in input_files:
         with open(sequence_input.current_input) as data_for_totals:
             for lines_for_totals in data_for_totals:
                 if '>' in lines_for_totals:
                     total_sequences += 1
-    
+
     total_files = len(str(total_sequences/bme_split_number_in_groups))
     initial_loop = True
-    
+
     print bme_split_number_in_groups
-    
+
     for sequence_input in input_files:
         for working_sequence in sequence_reader(sequence_input.current_input).read():
             if initial_loop:
@@ -2310,7 +2277,7 @@ def vespa_split_in_groups (input_files):
                     split_filename += '.{0}'.format(return_extension(sequence_input.current_input))
                 bme_split_file = open(split_filename, 'w')
                 initial_loop = False
-            
+
             if sequence_counter == bme_split_number_in_groups:
                 group_counter += 1
                 bme_split_file.close()
@@ -2344,13 +2311,13 @@ def vespa_gene_selection (input_files):
             if header_characters.isalnum():
                 return_seq_filename += header_characters
         return return_seq_filename
-    
+
     import csv
     print 'VESPA: Gene selection'
     global bme_selection_csv, bme_output_directory
     csv_found, csv_missing, csv_list = ([], [], [row[0].strip() for row in csv.reader(open(bme_selection_csv, 'rU'))])
     directory_created = False
-    
+
     for sequence_input in input_files:
         if not directory_created:
             (selected_output_dir, selected_output_filename, selected_output) = check_output(sequence_input, 'Selected')
@@ -2366,9 +2333,9 @@ def vespa_gene_selection (input_files):
                     bme_selection_file = open(selection_filename, 'w')
                     bme_selection_file.write(str(working_sequence) + '\n')
                     bme_selection_file.close()
-    
+
     csv_missing = list(set(csv_list) - set(csv_found))
-    
+
     if csv_missing:
         print '{0} genes not found, creating file: missing_genes.log'.format(len(csv_missing))
         bme_missing_file = create_unique_file('missing_genes.log')
@@ -2379,7 +2346,7 @@ def vespa_gene_selection (input_files):
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_check_SGO:
 ### Details: Checks for SGOs using seqeunce headers.
-def vespa_check_SGO (input_files):        
+def vespa_check_SGO (input_files):
     import os
     from collections import defaultdict
     print 'VESPA: Checking SGO status'
@@ -2401,7 +2368,7 @@ def vespa_check_SGO (input_files):
         else:
             check_SGO_log.write('{0},FAIL\n'.format(sequence_input.current_input))
     check_SGO_log.close()
-    
+
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_reduce_ensembl:
 ### Details: Reduces the length of Ensembl ID headers 
@@ -2409,14 +2376,14 @@ def vespa_reduce_ensembl (input_files):
     print 'VESPA: Reduce Ensembl Created Headers'
     reduced_conversion = create_unique_file('reduced_conversion.log')
     for sequence_input in input_files:
-        (reduced_output_dir, reduced_output_filename, reduced_output) = check_output(sequence_input, 'Reduced')  
+        (reduced_output_dir, reduced_output_filename, reduced_output) = check_output(sequence_input, 'Reduced')
         bme_reduced_file = open(reduced_output, 'w')
         for working_sequence in sequence_reader(sequence_input.current_input).read():
             original_list, reduced_list = working_sequence.header.strip()[1:].split('|'), []
             for header_entries in original_list:
                 check_header = header_entries.upper()
                 if check_header.startswith('ENS'):
-                    if check_header.split('0',1)[0].endswith('G'): 
+                    if check_header.split('0',1)[0].endswith('G'):
                         reduced_list.append(header_entries)
                 else:
                     reduced_list.append(header_entries)
@@ -2427,9 +2394,9 @@ def vespa_reduce_ensembl (input_files):
         bme_reduced_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###   _____ _       _           _  __      __        _       _     _           
-###  / ____| |     | |         | | \ \    / /       (_)     | |   | |          
-### | |  __| | ___ | |__   __ _| |  \ \  / /_ _ _ __ _  __ _| |__ | | ___  ___ 
+###   _____ _       _           _  __      __        _       _     _
+###  / ____| |     | |         | | \ \    / /       (_)     | |   | |
+### | |  __| | ___ | |__   __ _| |  \ \  / /_ _ _ __ _  __ _| |__ | | ___  ___
 ### | | |_ | |/ _ \| '_ \ / _` | |   \ \/ / _` | '__| |/ _` | '_ \| |/ _ \/ __|
 ### | |__| | | (_) | |_) | (_| | |    \  / (_| | |  | | (_| | |_) | |  __/\__ \
 ###  \_____|_|\___/|_.__/ \__,_|_|     \/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
@@ -2486,20 +2453,18 @@ bme_subtree_log_file = 'vespa_subtrees.log'
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### General codeML variables
 bme_species_tree = ''
-bme_branch_label_table = ''       
+bme_branch_label_table = ''
 bme_in_paralogs = False
 bme_alignment_path = ''
 bme_main_output = ''
 
-
-
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-###   _____                                          _ _      _            
-###  / ____|                                        | | |    (_)           
-### | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| | |     _ _ __   ___ 
+###   _____                                          _ _      _
+###  / ____|                                        | | |    (_)
+### | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| | |     _ _ __   ___
 ### | |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` | |    | | '_ \ / _ \
 ### | |___| (_) | | | | | | | | | | | (_| | | | | (_| | |____| | | | |  __/
-###  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|______|_|_| |_|\___|   
+###  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|______|_|_| |_|\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: command_line:
@@ -2510,7 +2475,6 @@ def command_line():
     global bme_similarity_e_value_cutoff, bme_similarity_percent_identity_cutoff, bme_similarity_alignment_length_cutoff
     global bme_metAl_compare_files, bme_metAl_compare_dir, bme_metAl_cutoff, bme_supported_model_list, bme_mrbayes_mcmc_gen, bme_mrbayes_mcmc_chains, bme_mrbayes_mcmc_temp, bme_mrbayes_mcmc_burnin
     global bme_species_tree, bme_branch_label_table, bme_in_paralogs, bme_alignment_path
-    
 
     def command_splitter (command_array):
         command_return, option_return = '', []
@@ -2524,7 +2488,7 @@ def command_line():
             if command_groups.startswith('-'):
                 option_return.append(command_groups)
         yield command_return, option_return
-    
+
     def assign_input_files (input_directory, input_varible):
         import os, sys
         input_to_return = []
@@ -2536,7 +2500,7 @@ def command_line():
         else:
             input_to_return.append(command_line_data(input_varible, False))
         return input_to_return
-    
+
     def assign_compare_files(input_varible):
         import os, sys
         if check_if_input_directory(input_varible):
@@ -2548,11 +2512,10 @@ def command_line():
         else:
             bme_metAl_compare_files.append(input_varible)
 
-        
     import sys, os
     command_input = []
     input_directory_check = False
-    
+
     if 'h' in sys.argv[1:]:
         if len(sys.argv[1:]) > 1:
             for help_request in sys.argv[2:]:
@@ -2563,11 +2526,11 @@ def command_line():
     elif 'help' in sys.argv[1:]:
         if len(sys.argv[1:]) > 1:
             for help_request in sys.argv[2:]:
-                help_message(help_request) 
+                help_message(help_request)
         else:
             help_message('')
         sys.exit()
-    
+
     for current_command, options_list in command_splitter(sys.argv[1:]):
         for options in options_list:
             if options.startswith('-input='):
@@ -2609,7 +2572,7 @@ def command_line():
                 if 'true' in options.split('=')[1].lower():
                     bme_format_blast_database = True
                 else:
-                    bme_format_blast_database = False        
+                    bme_format_blast_database = False
             elif options.startswith('-selection_csv='):
                 bme_selection_csv = options.split('=')[1]
             elif options.startswith('-output_database='):
@@ -2654,7 +2617,6 @@ def command_line():
             elif options.startswith('-mcmc_burnin='):
                 bme_mrbayes_mcmc_burnin = float(options.split('=')[1])
 
-
         if current_command.lower() in bme_command_table:
             if command_input:
                 #1st Phase
@@ -2669,16 +2631,15 @@ def command_line():
                 elif 'create_database' in current_command.lower():
                     vespa_create_database(command_input,)
                 elif 'individual_sequences' in current_command.lower():
-                    vespa_individual_sequences(command_input)   
+                    vespa_individual_sequences(command_input)
                 elif 'split_sequences' in current_command.lower():
                     vespa_split_in_groups(command_input)
                 elif 'gene_selection' in current_command.lower():
                     vespa_gene_selection(command_input)
                 elif 'sgo_check' in current_command.lower():
-                    vespa_check_SGO(command_input)   
+                    vespa_check_SGO(command_input)
                 elif 'reduce_ensembl' in current_command.lower():
-                    vespa_reduce_ensembl(command_input)    
-                    
+                    vespa_reduce_ensembl(command_input)
                 #2nd Phase
                 elif 'setup_reciprocal_input' in current_command.lower():
                     vespa_setup_reciprocal_input(command_input)
@@ -2688,7 +2649,6 @@ def command_line():
                     vespa_similarity_groups(command_input,True)
                 elif 'similarity_groups' in current_command.lower():
                     vespa_similarity_groups(command_input,False)
-                
                 #3rd Phase
                 elif 'metal_compare' in current_command.lower():
                     vespa_metAl_compare(command_input)
@@ -2698,8 +2658,6 @@ def command_line():
                     vespa_prottest_reader(command_input)
                 elif 'mrbayes_setup' in current_command.lower():
                     vespa_setup_mrbayes(command_input)
-                
-                
                 #4th Phase
                 elif 'mrbayes_reader' in current_command.lower():
                     vespa_mrbayes_reader(command_input)
@@ -2712,18 +2670,16 @@ def command_line():
                 elif 'infer_genetree' in current_command.lower():
                     vespa_infer_genetree(command_input)
                 elif 'link_input' in current_command.lower():
-                    vespa_link_input(command_input)    
+                    vespa_link_input(command_input)
                 elif 'codeml_setup' in current_command.lower():
                     vespa_codeml_setup(command_input)
-                    
                 #5th Phase
                 elif 'codeml_reader' in current_command.lower():
                     vespa_codeml_reader(command_input)
             else:
                 print 'No input specified for command: {0}. Please check command-line input'.format(current_command)
         else:
-            print 'Specified command ({0}) not found. Please check command-line input'.format(current_command) 
-            
+            print 'Specified command ({0}) not found. Please check command-line input'.format(current_command)
 
 import sys, os
 if len(sys.argv) > 1:
