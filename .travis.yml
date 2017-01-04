@@ -6,8 +6,7 @@ python:
 install: "pip install -r Test_files/requirements.txt"
 
 # Command to run tests
-#script: python vespa.py clean -input=Test_files/Genomes
-script: python np_test.py
+script: python vespa.py clean -input=Test_files/Genomes
 
 branches:
   only:
