@@ -163,7 +163,7 @@ __      ________  _____ _____
 |||||                              Command Help                             ||||||
 ----------------------------------------------------------------------------------
 Specify the command of interest after invoking help/h.
-For example: lamp.py help clean
+For example: vespa.py help clean
 ----------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------
@@ -450,7 +450,7 @@ class command_line_data(object):
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: check_output:
-### Details: handles general output assignment for LaMP functions
+### Details: handles general output assignment for VESPA functions
 def check_output(file_to_verify, default_output):
     if file_to_verify.input_in_dir:
         if not file_to_verify.current_output_dir:
@@ -471,7 +471,7 @@ def check_output(file_to_verify, default_output):
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: check_output_dir:
-### Details: handles directory output assignment for laMP functions
+### Details: handles directory output assignment for VESPA functions
 def check_output_dir(default_output):
     global bme_output_directory
     if not bme_output_directory:
@@ -583,6 +583,7 @@ def ensembl_infer(query_header):
                      'ENSSSCG':'Pig', 'ENSTGUG':'Zebra Finch', 'ENSTRUG':'Fugu',
                      'ENSTSYG':'Tarsier', 'ENSTNIG':'Tetraodon', 'ENSTBEG':'Tree Shrew',
                      'ENSTTRG':'Dolphin', 'ENSVPAG':'Alpaca', 'ENSXETG':'Xenopus'}
+    
     if ensembl_table.has_key(query_header[1:8]):
         return_species = ensembl_table[query_header[1:8]]
     else:
@@ -637,10 +638,10 @@ def check_if_input_directory (input_varible):
 ### |____/ \__|_| |_| |_|    |_| |_|\__,_|___/\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_codeml_reader:
-### Details: LaMP codeML output reader
-def lamp_codeml_reader (input_files):
-    print 'LaMP: CodeML Reader'
+### Function: vespa_codeml_reader:
+### Details: VESPA codeML output reader
+def vespa_codeml_reader (input_files):
+    print 'VESPA: CodeML Reader'
     import os, sys, glob
     from collections import defaultdict
     
@@ -821,10 +822,10 @@ def lamp_codeml_reader (input_files):
 ###    |_|  \__|_| |_| |_|    |_| |_|\__,_|___/\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_branch_table:
-### Details: LaMP function that creates a branch table from species tree
-def lamp_branch_table(input_files):
-    print 'LaMP: Branch Table Creator'
+### Function: vespa_branch_table:
+### Details: VESPA function that creates a branch table from species tree
+def vespa_branch_table(input_files):
+    print 'VESPA: Branch Table Creator'
     import os, sys, dendropy, re, copy
     from collections import defaultdict
     
@@ -913,10 +914,10 @@ def lamp_branch_table(input_files):
         branch_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_map_protein_gaps:
+### Function: vespa_map_protein_gaps:
 ### Details: Creates nucleotide alignments using protein alignments and a nucleotide sequence database
-def lamp_map_protein_gaps(input_files):
-    print 'LaMP: Mapping Nucleotide Alignments'
+def vespa_map_protein_gaps(input_files):
+    print 'VESPA: Mapping Nucleotide Alignments'
     from collections import defaultdict
     global bme_sequence_database_location
     alignment_counter, alignment_map, protein_map = (defaultdict(list), defaultdict(list), defaultdict(list))
@@ -987,10 +988,10 @@ def lamp_map_protein_gaps(input_files):
             print 'Error in:', alignment_files + ',' + ','.join([print_id.strip() for print_id in list(set(alignment_counter[alignment_files]) - set(convert_list))])
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_mrbayes_reader:
+### Function: vespa_mrbayes_reader:
 ### Details: Reads mrbayes output and converts to newick
-def lamp_mrbayes_reader (input_files):
-    print 'LaMP: Reading MrBayes Output'
+def vespa_mrbayes_reader (input_files):
+    print 'VESPA: Reading MrBayes Output'
     import re
     for alignment_input in input_files:
         (mrbayes_output_dir, mrbayes_output_filename, mrbayes_output) = check_output(alignment_input, 'MrBayes_Reader')
@@ -1016,10 +1017,10 @@ def lamp_mrbayes_reader (input_files):
         newick_output.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_infer_genetree:
+### Function: vespa_infer_genetree:
 ### Details: Function that generates gene trees using a specififed spcies tree
-def lamp_infer_genetree (input_files):
-    print 'LaMP: Inferring GeneTree'
+def vespa_infer_genetree (input_files):
+    print 'VESPA: Inferring GeneTree'
     import dendropy, re, os, shutil
     global bme_species_tree, bme_in_paralogs
     if bme_species_tree:
@@ -1088,10 +1089,10 @@ def lamp_infer_genetree (input_files):
         sys.exit()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_link_input:
+### Function: vespa_link_input:
 ### Details: Combines alignment and tree data for Codeml
-def lamp_link_input(input_files):
-    print 'LaMP: Linking Input'
+def vespa_link_input(input_files):
+    print 'VESPA: Linking Input'
     import dendropy, os, sys, shutil
     global bme_alignment_path
     if bme_alignment_path:
@@ -1142,10 +1143,10 @@ def lamp_link_input(input_files):
         sys.exit()
                 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_codeml_setup:
+### Function: vespa_codeml_setup:
 ### Details: Takes combined alignment and tree data and prepares the data for Codeml
-def lamp_codeml_setup(input_files):
-    print 'LaMP: CodeML Setup'
+def vespa_codeml_setup(input_files):
+    print 'VESPA: CodeML Setup'
     import dendropy, os, sys, subprocess, copy
     from collections import defaultdict
     global bme_in_paralogs, bme_branch_label_table
@@ -1391,10 +1392,10 @@ def lamp_codeml_setup(input_files):
 
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_subtrees:
+### Function: vespa_subtrees:
 ### Details: Creates subtrees from newick tree data
-def lamp_subtrees(input_files):
-    print 'LaMP: Create SubTrees'
+def vespa_subtrees(input_files):
+    print 'VESPA: Create SubTrees'
     import os, sys, dendropy, re
     from collections import defaultdict
     
@@ -1583,10 +1584,10 @@ def lamp_subtrees(input_files):
 ### |____/|_|  \__,_| |_|    |_| |_|\__,_|___/\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_metAl_compare:
+### Function: vespa_metAl_compare:
 ### Details: Compares two sets of files
-def lamp_metAl_compare (input_files):
-    print 'LaMP: metAl compare'
+def vespa_metAl_compare (input_files):
+    print 'VESPA: metAl compare'
     from collections import defaultdict
     from subprocess import Popen, PIPE
     import sys, shutil
@@ -1694,10 +1695,10 @@ def lamp_metAl_compare (input_files):
     metal_compare_results.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_setup_prottest:
+### Function: vespa_setup_prottest:
 ### Details: Creates the needed inputfile files for a prottest run
-def lamp_setup_prottest(input_files):
-    print 'LaMP: ProtTest Setup'
+def vespa_setup_prottest(input_files):
+    print 'VESPA: ProtTest Setup'
     import shutil
     prottest_file = create_unique_file('setup_prottest_taskfarm')
     for sequence_input in input_files:
@@ -1710,10 +1711,10 @@ def lamp_setup_prottest(input_files):
     prottest_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_prottest_reader:
+### Function: vespa_prottest_reader:
 ### Details: Reads prottest output and creates generic model output (best/supported by MrBayes)
-def lamp_prottest_reader (input_files):
-    print 'LaMP: ProtTest Results Reader'
+def vespa_prottest_reader (input_files):
+    print 'VESPA: ProtTest Results Reader'
         
     def protest_verify(protest_output):
         verify_model = False
@@ -1762,10 +1763,10 @@ def lamp_prottest_reader (input_files):
     report_best_supported_models.close()
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_setup_mrbayes:
+### Function: vespa_setup_mrbayes:
 ### Details: Reads create Nexus files for MrBayes given fasta files and prottest supported file
-def lamp_setup_mrbayes (input_files):
-    print 'LaMP: MrBayes Setup'
+def vespa_setup_mrbayes (input_files):
+    print 'VESPA: MrBayes Setup'
     global bme_supported_model_list, bme_mrbayes_mcmc_gen, bme_mrbayes_mcmc_chains, bme_mrbayes_mcmc_temp, bme_mrbayes_mcmc_burnin
     import os, sys
     header_warning = False
@@ -1844,9 +1845,9 @@ def lamp_setup_mrbayes (input_files):
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Functions: lamp_setup_reciprocal_input
+### Functions: vespa_setup_reciprocal_input
 ### Details: creates an input database for a reciprocal run
-def lamp_setup_reciprocal_input(input_files):
+def vespa_setup_reciprocal_input(input_files):
     global bme_sequence_database_location
     csv_list = []
     for similarity_file in input_files:
@@ -1948,9 +1949,9 @@ def assign_connections (assignment_graph, assign_data):
             assignment_graph[(assign_data[0],assign_data[1])] = False
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Functions: lamp_best_reciprocal_similarity_groups
+### Functions: vespa_best_reciprocal_similarity_groups
 ### Details: Identifies best reciprocals between species
-def lamp_best_reciprocal_similarity_groups(input_files):
+def vespa_best_reciprocal_similarity_groups(input_files):
     
     def format_splitter(unsplit_similarity_line, similarity_format):
         return_line = []
@@ -1975,7 +1976,7 @@ def lamp_best_reciprocal_similarity_groups(input_files):
     from collections import defaultdict
     global bme_similarity_data_format
     
-    print 'LaMP: Best-Reciprocal Groups'
+    print 'VESPA: Best-Reciprocal Groups'
     reciprocality_table = defaultdict(dict)
     reciprocality_graph = {}
     for similarity_file in input_files:
@@ -2006,9 +2007,9 @@ def lamp_best_reciprocal_similarity_groups(input_files):
     create_similarity_groups(sub_graph)
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Functions: lamp_similarity_groups
+### Functions: vespa_similarity_groups
 ### Details: Identifies either simple or reciprocal connections within file
-def lamp_similarity_groups(input_files, reciprocality_check):
+def vespa_similarity_groups(input_files, reciprocality_check):
     
     def format_splitter(unsplit_similarity_line, similarity_format):
         return_line = []
@@ -2028,9 +2029,9 @@ def lamp_similarity_groups(input_files, reciprocality_check):
         return return_check
     
     if reciprocality_check:
-        print 'LaMP: Reciprocal Groups'
+        print 'VESPA: Reciprocal Groups'
     else:
-        print 'LaMP: Similarity Groups'
+        print 'VESPA: Similarity Groups'
         
     global bme_similarity_data_format
     reciprocality_graph = {}
@@ -2066,10 +2067,10 @@ def lamp_similarity_groups(input_files, reciprocality_check):
 ###  |_|___/\__| |_|    |_| |_|\__,_|___/\___|
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_clean:
+### Function: vespa_clean:
 ### Details: Removes sequences from the specified filepath that are not divisible by three
-def lamp_clean (input_files):
-    print 'LaMP: Cleaning sequences'
+def vespa_clean (input_files):
+    print 'VESPA: Cleaning sequences'
     removed_in_cleanfile = create_unique_file('cleaned_genes_removed.log')
     global bme_remove_internal_stop, bme_label_with_filename, bme_infer_labels_ensembl
     for sequence_input in input_files:
@@ -2098,10 +2099,10 @@ def lamp_clean (input_files):
     removed_in_cleanfile.close()
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_clean_ensembl:
+### Function: vespa_clean_ensembl:
 ### Details: Cleans ensembl genome, returns longest transcripts divisible by three
-def lamp_clean_ensembl (input_files):
-    print 'LaMP: Cleaning ENSEBML sequences'
+def vespa_clean_ensembl (input_files):
+    print 'VESPA: Cleaning ENSEBML sequences'
     global bme_remove_internal_stop, bme_label_with_filename, bme_infer_labels_ensembl
     removed_in_cleanfile = create_unique_file('cleaned_ensembl_removed.log')
     from collections import defaultdict
@@ -2145,10 +2146,10 @@ def lamp_clean_ensembl (input_files):
     removed_in_cleanfile.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_reverse_complement:
+### Function: vespa_reverse_complement:
 ### Details: Returns the reverse complement of the sequence in the specified filepath
-def lamp_reverse_complement (input_files):
-    print 'LaMP: Reverse Complementing Sequences'
+def vespa_reverse_complement (input_files):
+    print 'VESPA: Reverse Complementing Sequences'
     global bme_label_with_filename, bme_infer_labels_ensembl
     for sequence_input in input_files:
         (reversed_output_dir, reversed_output_filename, reversed_output) = check_output(sequence_input, 'RevComp')  
@@ -2164,10 +2165,10 @@ def lamp_reverse_complement (input_files):
         bme_revcomp_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_translate:
+### Function: vespa_translate:
 ### Details: Translate the specified filepath from DNA to Protien
-def lamp_translate (input_files):
-    print 'LaMP: Translating Sequences'
+def vespa_translate (input_files):
+    print 'VESPA: Translating Sequences'
     global bme_remove_internal_stop, bme_remove_terminal_stop, bme_label_with_filename, bme_infer_labels_ensembl
     clean_warn = False
     removed_in_transfile = create_unique_file('translated_genes_removed.log')
@@ -2204,16 +2205,16 @@ def lamp_translate (input_files):
     removed_in_transfile.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_create_database:
+### Function: vespa_create_database:
 ### Details: Returns a database of all sequences in the specified filepath
-def lamp_create_database (input_files):
+def vespa_create_database (input_files):
     def assign_database_filename(assign_filename):
         if assign_filename:
             return create_unique_file(assign_filename)
         else:
             return create_unique_file('database.fas')  
     
-    print 'LaMP: Creating Database'
+    print 'VESPA: Creating Database'
     global bme_format_blast_database, bme_output_filename
     import subprocess
     sequence_type = ''
@@ -2236,16 +2237,16 @@ def lamp_create_database (input_files):
             blast_test = subprocess.Popen(['makeblastdb', '-dbtype', type_convert[sequence_type], '-in', bme_database_file.name], stdout=subprocess.PIPE,stderr=subprocess.PIPE, stdin=subprocess.PIPE)
             blast_out, blast_error = blast_test.communicate()
             if not blast_error:
-                print 'LaMP: Formatting BLAST Database'
+                print 'VESPA: Formatting BLAST Database'
             else:
                 print 'Error with makeblastdb function. Aborting format'
         except:
             print 'Cannot locate makeblastdb function. Aborting format'
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_individual_sequences:
+### Function: vespa_individual_sequences:
 ### Details: Returns single files of sequences in the specified filepath
-def lamp_individual_sequences (input_files):
+def vespa_individual_sequences (input_files):
     def return_sequence_filename(sequence_header):
         return_seq_filename = ''
         for header_characters in sequence_header:
@@ -2263,7 +2264,7 @@ def lamp_individual_sequences (input_files):
         return return_seq_filename
         
     import os
-    print 'LaMP: Creating Individual Sequences'
+    print 'VESPA: Creating Individual Sequences'
     global bme_output_directory
     directory_created = False
     
@@ -2281,11 +2282,11 @@ def lamp_individual_sequences (input_files):
             bme_individual_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_split_in_groups:
+### Function: vespa_split_in_groups:
 ### Details: Returns files that each contain multiple sequences
-def lamp_split_in_groups (input_files):
+def vespa_split_in_groups (input_files):
     import os
-    print 'LaMP: Creating sequence groups'
+    print 'VESPA: Creating sequence groups'
     global bme_split_number_in_groups, bme_output_directory
     total_sequences, total_files, sequence_counter, group_counter = 0, 0, 0, 0
     
@@ -2326,9 +2327,9 @@ def lamp_split_in_groups (input_files):
     bme_split_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_gene_selection:
+### Function: vespa_gene_selection:
 ### Details: Returns single files of sequences in the specified filepath if present within a csv file
-def lamp_gene_selection (input_files):
+def vespa_gene_selection (input_files):
     def return_sequence_filename(sequence_header):
         return_seq_filename = ''
         for header_characters in sequence_header:
@@ -2346,7 +2347,7 @@ def lamp_gene_selection (input_files):
         return return_seq_filename
     
     import csv
-    print 'LaMP: Gene selection'
+    print 'VESPA: Gene selection'
     global bme_selection_csv, bme_output_directory
     csv_found, csv_missing, csv_list = ([], [], [row[0].strip() for row in csv.reader(open(bme_selection_csv, 'rU'))])
     directory_created = False
@@ -2377,12 +2378,12 @@ def lamp_gene_selection (input_files):
         bme_missing_file.close()
 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_check_SGO:
+### Function: vespa_check_SGO:
 ### Details: Checks for SGOs using seqeunce headers.
-def lamp_check_SGO (input_files):        
+def vespa_check_SGO (input_files):        
     import os
     from collections import defaultdict
-    print 'LaMP: Checking SGO status'
+    print 'VESPA: Checking SGO status'
     check_SGO_log = create_unique_file('SGO_Check.log')
     for sequence_input in input_files:
         sgo_status = True
@@ -2403,10 +2404,10 @@ def lamp_check_SGO (input_files):
     check_SGO_log.close()
     
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-### Function: lamp_reduce_ensembl:
+### Function: vespa_reduce_ensembl:
 ### Details: Reduces the length of Ensembl ID headers 
-def lamp_reduce_ensembl (input_files):
-    print 'LaMP: Reduce Ensembl Created Headers'
+def vespa_reduce_ensembl (input_files):
+    print 'VESPA: Reduce Ensembl Created Headers'
     reduced_conversion = create_unique_file('reduced_conversion.log')
     for sequence_input in input_files:
         (reduced_output_dir, reduced_output_filename, reduced_output) = check_output(sequence_input, 'Reduced')  
@@ -2659,66 +2660,66 @@ def command_line():
             if command_input:
                 #1st Phase
                 if 'ensembl_clean' in current_command.lower():
-                    lamp_clean_ensembl(command_input)
+                    vespa_clean_ensembl(command_input)
                 elif 'clean' in current_command.lower():
-                    lamp_clean(command_input)
+                    vespa_clean(command_input)
                 elif 'translate' in current_command.lower():
-                    lamp_translate(command_input)
+                    vespa_translate(command_input)
                 elif 'rev_complement' in current_command.lower():
-                    lamp_reverse_complement(command_input)
+                    vespa_reverse_complement(command_input)
                 elif 'create_database' in current_command.lower():
-                    lamp_create_database(command_input,)
+                    vespa_create_database(command_input,)
                 elif 'individual_sequences' in current_command.lower():
-                    lamp_individual_sequences(command_input)   
+                    vespa_individual_sequences(command_input)   
                 elif 'split_sequences' in current_command.lower():
-                    lamp_split_in_groups(command_input)
+                    vespa_split_in_groups(command_input)
                 elif 'gene_selection' in current_command.lower():
-                    lamp_gene_selection(command_input)
+                    vespa_gene_selection(command_input)
                 elif 'sgo_check' in current_command.lower():
-                    lamp_check_SGO(command_input)   
+                    vespa_check_SGO(command_input)   
                 elif 'reduce_ensembl' in current_command.lower():
-                    lamp_reduce_ensembl(command_input)    
+                    vespa_reduce_ensembl(command_input)    
                     
                 #2nd Phase
                 elif 'setup_reciprocal_input' in current_command.lower():
-                    lamp_setup_reciprocal_input(command_input)
+                    vespa_setup_reciprocal_input(command_input)
                 elif 'best_reciprocal_groups' in current_command.lower():
-                    lamp_best_reciprocal_similarity_groups(command_input)
+                    vespa_best_reciprocal_similarity_groups(command_input)
                 elif 'reciprocal_groups' in current_command.lower():
-                    lamp_similarity_groups(command_input,True)
+                    vespa_similarity_groups(command_input,True)
                 elif 'similarity_groups' in current_command.lower():
-                    lamp_similarity_groups(command_input,False)
+                    vespa_similarity_groups(command_input,False)
                 
                 #3rd Phase
                 elif 'metal_compare' in current_command.lower():
-                    lamp_metAl_compare(command_input)
+                    vespa_metAl_compare(command_input)
                 elif 'prottest_setup' in current_command.lower():
-                    lamp_setup_prottest(command_input)
+                    vespa_setup_prottest(command_input)
                 elif 'prottest_reader' in current_command.lower():
-                    lamp_prottest_reader(command_input)
+                    vespa_prottest_reader(command_input)
                 elif 'mrbayes_setup' in current_command.lower():
-                    lamp_setup_mrbayes(command_input)
+                    vespa_setup_mrbayes(command_input)
                 
                 
                 #4th Phase
                 elif 'mrbayes_reader' in current_command.lower():
-                    lamp_mrbayes_reader(command_input)
+                    vespa_mrbayes_reader(command_input)
                 elif 'create_branch' in current_command.lower():
-                    lamp_branch_table(command_input)
+                    vespa_branch_table(command_input)
                 elif 'create_subtrees' in current_command.lower():
-                    lamp_subtrees(command_input)
+                    vespa_subtrees(command_input)
                 elif 'map_alignments' in current_command.lower():
-                    lamp_map_protein_gaps(command_input)
+                    vespa_map_protein_gaps(command_input)
                 elif 'infer_genetree' in current_command.lower():
-                    lamp_infer_genetree(command_input)
+                    vespa_infer_genetree(command_input)
                 elif 'link_input' in current_command.lower():
-                    lamp_link_input(command_input)    
+                    vespa_link_input(command_input)    
                 elif 'codeml_setup' in current_command.lower():
-                    lamp_codeml_setup(command_input)
+                    vespa_codeml_setup(command_input)
                     
                 #5th Phase
                 elif 'codeml_reader' in current_command.lower():
-                    lamp_codeml_reader(command_input)
+                    vespa_codeml_reader(command_input)
             else:
                 print 'No input specified for command: {0}. Please check command-line input'.format(current_command)
         else:
