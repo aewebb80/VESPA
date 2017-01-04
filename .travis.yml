@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 # command to install dependencies
-script: python test.py
+script: python vespa.py clean -input=Test_files/Genomes
 branches:
   only:
     - master
