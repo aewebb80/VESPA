@@ -1,0 +1,16 @@
+language: python
+python:
+  - "2.7"
+
+# Command to install dependencies
+install: "pip install -r Test_files/requirements.txt"
+
+# Command to run tests
+script: 
+  - python vespa.py clean -input=Test_files/Genomes
+  - python vespa.py ensembl_clean -input=Test_files/Genomes
+  - python vespa.py translate -input=Test_files/Cleaned_Genomes
+
+branches:
+  only:
+    - master

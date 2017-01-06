@@ -561,6 +561,7 @@ def ensembl_infer(query_header):
                      'ENSSSCG':'Pig', 'ENSTGUG':'Zebra Finch', 'ENSTRUG':'Fugu',
                      'ENSTSYG':'Tarsier', 'ENSTNIG':'Tetraodon', 'ENSTBEG':'Tree Shrew',
                      'ENSTTRG':'Dolphin', 'ENSVPAG':'Alpaca', 'ENSXETG':'Xenopus'}
+    
     if ensembl_table.has_key(query_header[1:8]):
         return_species = ensembl_table[query_header[1:8]]
     else:
@@ -1692,7 +1693,7 @@ def vespa_setup_prottest(input_files):
 ### Details: Reads prottest output and creates generic model output (best/supported by MrBayes)
 def vespa_prottest_reader (input_files):
     print 'VESPA: ProtTest Results Reader'
-
+    
     def protest_verify(protest_output):
         verify_model = False
         alignment_file = ''
@@ -2178,8 +2179,8 @@ def vespa_create_database (input_files):
         if assign_filename:
             return create_unique_file(assign_filename)
         else:
-            return create_unique_file('database.fas')
-
+            return create_unique_file('database.fas')  
+    
     print 'VESPA: Creating Database'
     global bme_format_blast_database, bme_output_filename
     import subprocess
@@ -2346,7 +2347,7 @@ def vespa_gene_selection (input_files):
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 ### Function: vespa_check_SGO:
 ### Details: Checks for SGOs using seqeunce headers.
-def vespa_check_SGO (input_files):
+def vespa_check_SGO (input_files):        
     import os
     from collections import defaultdict
     print 'VESPA: Checking SGO status'
@@ -2631,15 +2632,15 @@ def command_line():
                 elif 'create_database' in current_command.lower():
                     vespa_create_database(command_input,)
                 elif 'individual_sequences' in current_command.lower():
-                    vespa_individual_sequences(command_input)
+                    vespa_individual_sequences(command_input)   
                 elif 'split_sequences' in current_command.lower():
                     vespa_split_in_groups(command_input)
                 elif 'gene_selection' in current_command.lower():
                     vespa_gene_selection(command_input)
                 elif 'sgo_check' in current_command.lower():
-                    vespa_check_SGO(command_input)
+                    vespa_check_SGO(command_input)   
                 elif 'reduce_ensembl' in current_command.lower():
-                    vespa_reduce_ensembl(command_input)
+                    vespa_reduce_ensembl(command_input)    
                 #2nd Phase
                 elif 'setup_reciprocal_input' in current_command.lower():
                     vespa_setup_reciprocal_input(command_input)
@@ -2670,7 +2671,7 @@ def command_line():
                 elif 'infer_genetree' in current_command.lower():
                     vespa_infer_genetree(command_input)
                 elif 'link_input' in current_command.lower():
-                    vespa_link_input(command_input)
+                    vespa_link_input(command_input)    
                 elif 'codeml_setup' in current_command.lower():
                     vespa_codeml_setup(command_input)
                 #5th Phase
