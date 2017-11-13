@@ -39,9 +39,9 @@ $ tar -xvzf VESPA.tar.gz
 
 $ cd VESPA
 
-$ chmod +x *Codeml*.pl
+$ chmod +x \*Codeml\*.pl
 
-$ sudo mv *Codeml*.pl /usr/local/bin
+$ sudo mv \*Codeml\*.pl /usr/local/bin
 
 
 $ sudo mv CodemlWrapper/ /Library/Perl/5.XX/
