@@ -22,5 +22,6 @@ Details
    :glob:
 
    introduction
-   commands
+   installation
    phase*
+   references
