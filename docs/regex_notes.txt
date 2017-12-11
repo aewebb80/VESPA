@@ -1,0 +1,7 @@
+# Match including quotes
+
+(?<=(["']\b))(?:(?=(\\?))\2.)*?(?=\1)
+
+# Match without external qutoes
+
+(?<=(["']\b))(?:(?=(\\?))\2.)*?(?=\1)

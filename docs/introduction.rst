@@ -12,7 +12,7 @@ Lastly, VESPA was designed to increase user productivity by automating labor int
 
 
 Phase and pipeline structure
-=================================
+============================
 
 The VESPA toolkit is separated into five separate analysis phases (Figure 1). The rationale behind the “phase” system was primarily to aid users in understanding the distinct procedures involved in selective pressure analysis and to provide more advanced users with a flexible and adaptable pipeline. Functions within a phase also analyze the same input type (e.g. sequences, BLAST output, etc.).
 
@@ -20,10 +20,11 @@ The output of each phase in the VESPA toolit requires an analysis step that must
 
 The software package also incorporates two analysis pipelines, a basic pipeline for single gene orthologs (SGOs) and an advanced pipeline for both SGOs and multi-gene families (MGFs). The basic pipeline was designed to bypass the phylogenetic reconstruction techniques (phase 3) by inferring a gene phylogeny from a user-defined species phylogeny. Usage of the basic pipeline is only recommended if the genes are confirmed SGOs. See Figure 1 for additional details on the pipelines.
 
-FIGURE 1
+**VESPA command overview**
 
-Figure 1 Legend
-Each phase indicates the functions (white boxes) and the order in which they are invoked. Optional functions are indicated by ‘or’ and may be skipped. Dark boxes indicate third-party programs. (a) Phase 1 (Section 1.6) is the data preparation phase and includes the functions: ensembl_clean/clean (Section 1.6.1), translate (Section 1.6.2), create_database (Section 1.6.3), and gene_selection (Section 1.6.4). This phase ends with the requirements for sequence similarity searching. (b) Phase 2 (Section 1.7) is the similarity group creation phase and includes the following functions: similarity_groups (Section 1.7.2), reciprocal_groups (Section 1.7.2) and best_reciprocal_groups (Section 1.7.3). This phase results in the creation of requirements for multiple sequence alignment (MSA). (c) Phase three (Section 1.8) is the alignment assessment stage and includes both a basic pipeline (on the left) for MSA files that contain only single gene orthologous (SGOs) and an advanced pipeline (on the right) for unconfirmed MSA files. The phase includes the following functions: metal_compare (Section 1.8.1), protest_setup (Section 1.8.2), protest_reader (Section 1.8.2), and mrbayes_setup (Section 1.8.3). This phase results in either: i) a phylogenetic trees of the MSAs for the advanced pipeline or ii) selected MSAs for the basic pipeline. (d) Phase four (Section 1.9) is the selective pressure phase and continues the basic pipeline and advanced pipeline of the previous phase. The phase four basic pipeline includes: map_alignment (Section 1.9.1), infer_genetree (Section 1.9.2), setup_codeml (Section 1.9.3), and create_branch (Section 1.9.6). The phase four advanced pipeline includes: mrbayes_reader (Section 1.9.4), create_subtrees (Section 1.9.5), create_branch (Section 1.9.6), and setup_codeml (Section 1.9.3). This phase results in the input requirements for selective pressure analysis by codeML. (e) The final phase (Section 1.10) includes the function codeml_reader (Section 1.10.1) that analyzes the results of the codeML analysis.
+.. figure:: images/overview.png
+	
+	Each phase indicates the functions (white boxes) and the order in which they are invoked. Optional functions are indicated by ‘or’ and may be skipped. Dark boxes indicate third-party programs. (a) Phase 1 (Section 1.6) is the data preparation phase and includes the functions: ensembl_clean/clean (Section 1.6.1), translate (Section 1.6.2), create_database (Section 1.6.3), and gene_selection (Section 1.6.4). This phase ends with the requirements for sequence similarity searching. (b) Phase 2 (Section 1.7) is the similarity group creation phase and includes the following functions: similarity_groups (Section 1.7.2), reciprocal_groups (Section 1.7.2) and best_reciprocal_groups (Section 1.7.3). This phase results in the creation of requirements for multiple sequence alignment (MSA). (c) Phase three (Section 1.8) is the alignment assessment stage and includes both a basic pipeline (on the left) for MSA files that contain only single gene orthologous (SGOs) and an advanced pipeline (on the right) for unconfirmed MSA files. The phase includes the following functions: metal_compare (Section 1.8.1), protest_setup (Section 1.8.2), protest_reader (Section 1.8.2), and mrbayes_setup (Section 1.8.3). This phase results in either: i) a phylogenetic trees of the MSAs for the advanced pipeline or ii) selected MSAs for the basic pipeline. (d) Phase four (Section 1.9) is the selective pressure phase and continues the basic pipeline and advanced pipeline of the previous phase. The phase four basic pipeline includes: map_alignment (Section 1.9.1), infer_genetree (Section 1.9.2), setup_codeml (Section 1.9.3), and create_branch (Section 1.9.6). The phase four advanced pipeline includes: mrbayes_reader (Section 1.9.4), create_subtrees (Section 1.9.5), create_branch (Section 1.9.6), and setup_codeml (Section 1.9.3). This phase results in the input requirements for selective pressure analysis by codeML. (e) The final phase (Section 1.10) includes the function codeml_reader (Section 1.10.1) that analyzes the results of the codeML analysis.
 
 
 Command structure
@@ -60,4 +61,22 @@ usr$ python vespa.py command -input=USR_INPUT –output=USR_DEF
 VESPA commands
 ==============
 
-TABLE
++-----------------------+--------------------------+------------------+------------------+----------------+
+| Phase one             | Phase two                | Phase three      | Phase four       | Phase five     |
++=======================+==========================+==================+==================+================+
+| clean                 | similarity_groups        | metal_compare    | map_alignments   | codeml_reader  |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| clean_ensembl         | reciprocal_groups        | prottest_setup   | infer_genetree   |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| rev_complement        | best_reciprocal_groups   | prottest_reader  | mrbayes_reader   |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| translate             |                          | mrbayes_setup    | codeml_setup     |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| create_database       |                          |                  | create_subtrees  |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| gene_selection        |                          |                  | create_branch    |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| individual_sequences  |                          |                  |                  |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
+| split_sequences       |                          |                  |                  |                |
++-----------------------+--------------------------+------------------+------------------+----------------+
