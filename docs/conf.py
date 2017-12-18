@@ -167,6 +167,10 @@ texinfo_documents = [
 
 
 
+# Customisations
+
+
+numfig = True
 
 
 import sphinx_rtd_theme
