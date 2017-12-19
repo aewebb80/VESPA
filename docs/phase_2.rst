@@ -11,22 +11,28 @@ Core options
 
 The :code:`-input` argument of each function within the second phase is designed to accept the modular output of BLAST and the standard output of HMMER (i.e. USR_HOMOLOGY). In addition, each function also requires both the :code:`database` and :code:`format` arguments. The :code:`database` argument is used to specify the protein sequence database created by earlier in the VESPA pipeline (i.e. ‘USR_DB’) (see :ref:`create_database`) whereas the :code:`-format` argument is used to specify the input format as either :code:`blast` or :code:`hmmer`. Please note that commands below are written on a single line.
 ::
+
     $ python vespa.py similarity_groups –input=USR_HOMOLOGY –format=blast –database=USR_DB
+
 Each function also includes three optional threshold options that are disabled by default: :code:`e_value`, :code:`alignment_length`, and :code:`percent_identity`. The three options enable the user to define threshold values for the E-value, alignment length, and percentage identity of each homology connection. Enabled thresholds must be passed for a pair-wise homology connection to be used in creating similarity groups. If an E-value threshold is not enabled, each function is designed to only accept E-values < 1, otherwise warning message is printed.
 ::
+
     $ python vespa.py similarity_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB -e_value=0.001
     $ python vespa.py similarity_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB -alignment_length=75
     $ python vespa.py similarity_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB -percent_identity=75
 
 
 :code:`similarity_groups` and :code:`reciprocal_groups`
-=================================================== 
+=======================================================
 
 The ‘similarity_groups’ and ‘reciprocal_groups’ functions both construct sequence similarity groups using a similar approach. Both functions iteratively read a single line of input (BLAST or HMMER output) and record only the name of the query and subject if they pass enabled thresholds. Limiting the recorded data of the homology search to sequence names and their respective role (query or subject) results in reduced computational requirements, increased function speed, and permits the function to parse larger BLAST or HMMER input files. Both functions are able to recognize and record input that denotes reciprocal homology of a previously recorded entry. Once each function has completed processing the input, the pair-wise homologs are used to build families. The ‘similarity_groups’ function allows both non-reciprocal and reciprocal connections within a sequence group (:numref:`fig_similarity_groups`\a) whereas ‘reciprocal_groups’ is restricted to reciprocal connection within a sequence group (:numref:`fig_similarity_groups`\b).
 ::
+
     $ python vespa.py similarity_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB
     $ python vespa.py reciprocal_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB
+
 .. note::
+
     Supported file format(s): ‘input’: BLAST tabular output format and HMMER standard output.
 
 ::
@@ -68,7 +74,9 @@ The :code:`best_reciprocal_groups` function constructs sequence homology groups 
 ::
 
     $ python vespa.py best_reciprocal_groups –input=USR_HOMOLOGY –format=blast -database=USR_DB
+
 .. note::
+
     Supported file format(s): ‘input’: BLAST tabular output format and HMMER standard output.
 
 **Similarity groups created by functions**

@@ -22,14 +22,20 @@ This basic function was designed as a QC filter for downloaded nucleotide sequen
 
 This more advanced function was designed to identify the longest nucleotide (canonical) transcript within an Ensembl nucleotide genome that passed the QC step detailed in the :code:`clean` function. This is achieved by exploiting the pattern of ensembl sequence identifiers, which consistently begin with the gene identifier followed by the transcript identifier (:numref:`fig_overview`\d). The longest transcript is then identified for each ensembl gene identifier and saved within the output file.
 ::
+
     $ python vespa.py clean_ensembl –input=<user_input>
+
 .. note::
+
     Supported file format(s): :code:`-input`: fasta formatted files
+
+
 Command-specific options: Both clean functions incorporate a single enabled option (:code:`rm_internal_stop`) and two disabled options (:code:`label_filename` and :code:`infer_ensembl_species`) that may be manually configured by the user. The option :code:`rm_internal_stop` will remove sequences if they contain an internal stop codon (:numref:`fig_overview`\g), those removed will be reported in the command log file. It should be noted that while :code:`rm_internal_stop` is configurable, codeML does not permit nonsense mutations and this option should be enabled if the toolkit is being used for that purpose. The options :code:`label_filename` and :code:`infer_ensembl_species` alter sequence headers (i.e. Ensembl gene and transcript identifiers) by adding an additional identifier at the beginning of the header: :code:`infer_ensembl_species` adds the common species name of the respective Ensembl identifier (:numref:`fig_overview`\e) and :code:`label_filename` adds the filename (without the file extension) (:numref:`fig_overview`\f). It should be noted that executing a labeling option is required for enabling VESPA to automate the creation of gene trees and setup of the codeML branch-site models (for details see Section 1.9.6). 
 ::
-    usr$ python vespa.py clean –input=USR_INPUT -rm_internal_stop=False
-    usr$ python vespa.py clean –input=USR_INPUT -label_filename=True
-    usr$ python vespa.py clean –input=USR_INPUT -infer_ensembl_species=True
+
+    $ python vespa.py clean –input=USR_INPUT -rm_internal_stop=False
+    $ python vespa.py clean –input=USR_INPUT -label_filename=True
+    $ python vespa.py clean –input=USR_INPUT -infer_ensembl_species=True
 
 **Overview of :code:`clean` and :code:`clean_ensembl` functions**
 
@@ -45,8 +51,11 @@ The :code:`translate` function translates nucleotide sequences that passed the Q
 usr$ python vespa.py translate  –input=USR_INPUT
 Command-specific options: :code:`translate` incorporates a single unique option :code:`cleave_terminal` and the previously described options of the clean functions (Section 1.6.1). The :code:`cleave_terminal` option is enabled by default and is designed to cleave the terminal stop codon of each sequence (:numref:`fig_translate`\d). The function and default status of the remaining options are detailed in Section 1.6.1.
 ::
+
     $ python vespa.py translate –input=USR_INPUT -cleave_terminal=False
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files
 
 **Overview of** :code:`translate`
@@ -61,6 +70,7 @@ Command-specific options: :code:`translate` incorporates a single unique option 
 
 To keep the headers uniform throughout the process, edit the nucleotide versions of the sequence files after the :code:`clean` or :code:`ensembl_clean` step but before the 'translate' step.
 ::
+
     # Ensembl genomes have the headers in the format
     >ENS(3 sp specific characters)G(11 digit gene ID)|ENS(3 sp specific characters)T(for transcript)(11 digit trans riot ID which may or may not be identical to gene ID). For eg
     >ENSMODG00000000014|ENSMODT00000000012
@@ -89,8 +99,11 @@ To keep the headers uniform throughout the process, edit the nucleotide versions
 
 The :code:`create_database` function was designed for users to concatenate multiple genomes into the single database required for homology searching. The function operates by building the database a single sequence at a time (:numref:`fig_create_database`\a and :numref:`fig_create_database`\b). The command-line version of BLAST requires additional commands to create a BLAST-formatted database. If the user enables the option :code:`format_blast` and BLAST is installed on the system the function will attempt to automate the additional steps required for producing a BLAST-ready database (:numref:`fig_create_database`\c). If :code:`create_database` is unable to create the BLAST-formatted database, a warning message will be produced (see Section 1.12 BLAST version requirements).
 ::
+
     usr$ python vespa.py create_database –input=USR_INPUT
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files
 
 ::
@@ -141,7 +154,9 @@ If the user is only interested in a subset of genes, the :code:`gene_selection` 
 ::
 
     $ python vespa.py gene_selection –input=USR_INPUT -selection_csv=USR_INPUT
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files; :code:`selection_csv`: csv, tsv, and unformatted.
 
 **Overview of** :code:`gene_selection` **function**
@@ -158,20 +173,29 @@ Supplementary functions
 The VESPA toolkit also incorporates three supplementary functions that were designed to aid users in potential data manipulations required for homology searching: :code:`rev_complement`, :code:`individual_sequences`, and :code:`split_sequences`.
 The :code:`rev_complement` function: This function was designed for users to return the reverse complement of nucleotide sequences. Depending on the desired use, it is recommended that the user run the QC filter of the clean functions either preceding or proceeding the :code:`rev_complement` function.
 ::
+
     $ python vespa.py rev_complement –input=USR_INPUT
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files
 
 Command-specific options: The :code:`rev_complement` function incorporates the two labeling options of the clean functions (previously described in Section 1.6.1). It should be noted that the option :code:`rm_internal_stop` was not included in this function.
 
 The :code:`individual_sequences` function: This function was designed for users to separate files/directories housing large collections of sequences (i.e. genome file(s) and database files) into individual sequence files.
 ::
+
     $ python vespa.py individual_sequences –input=USR_INPUT
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files
 
 The :code:`split_sequences` function: This function was designed for users to separate files/ directories housing large collections of sequences (i.e. genome file(s) and database files) into sequence files that house a specified number of sequences. The number of sequences in each output file may be specified using the :code:`split_number` option; otherwise the default value of 100 is used. 
 ::
+
     $ python vespa.py split_sequences –input=USR_INPUT –split_number=USR_DEF
+
 .. note::
+
     Supported file format(s): :code:`input`: fasta formatted files
