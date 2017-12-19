@@ -4,8 +4,8 @@ Phase 1: data preparation
 
 The data preparation phase was included for users new to bioinformatics. The phase prepares downloaded genomes for homology searching using the two VESPA supported homology search tools: BLAST [Altschul et al., 1990] and HMMER [Eddy, 1998]. This phase also includes supplementary functions not required for either pipeline shown in :numref:`fig_overview` but rather to aid users in homology searching.
 
-The :code:`clean` and :code:`clean_ensembl` functions
-=====================================================
+:code:`clean` and :code:`clean_ensembl` functions
+=================================================
 
 The VESPA toolkit incorporates two quality control functions: :code:`clean` and :code:`clean_ensembl`.
 
