@@ -26,6 +26,7 @@ The software package also incorporates two analysis pipelines, a basic pipeline 
 .. image:: images/overview.png
 
 .. note::
+
 	Each phase indicates the functions (white boxes) and the order in which they are invoked. Optional functions are indicated by ‘or’ and may be skipped. Dark boxes indicate third-party programs. (a) Phase 1 (Section 1.6) is the data preparation phase and includes the functions: ensembl_clean/clean (Section 1.6.1), translate (Section 1.6.2), create_database (Section 1.6.3), and gene_selection (Section 1.6.4). This phase ends with the requirements for sequence similarity searching. (b) Phase 2 (Section 1.7) is the similarity group creation phase and includes the following functions: similarity_groups (Section 1.7.2), reciprocal_groups (Section 1.7.2) and best_reciprocal_groups (Section 1.7.3). This phase results in the creation of requirements for multiple sequence alignment (MSA). (c) Phase three (Section 1.8) is the alignment assessment stage and includes both a basic pipeline (on the left) for MSA files that contain only single gene orthologous (SGOs) and an advanced pipeline (on the right) for unconfirmed MSA files. The phase includes the following functions: metal_compare (Section 1.8.1), protest_setup (Section 1.8.2), protest_reader (Section 1.8.2), and mrbayes_setup (Section 1.8.3). This phase results in either: i) a phylogenetic trees of the MSAs for the advanced pipeline or ii) selected MSAs for the basic pipeline. (d) Phase four (Section 1.9) is the selective pressure phase and continues the basic pipeline and advanced pipeline of the previous phase. The phase four basic pipeline includes: map_alignment (Section 1.9.1), infer_genetree (Section 1.9.2), setup_codeml (Section 1.9.3), and create_branch (Section 1.9.6). The phase four advanced pipeline includes: mrbayes_reader (Section 1.9.4), create_subtrees (Section 1.9.5), create_branch (Section 1.9.6), and setup_codeml (Section 1.9.3). This phase results in the input requirements for selective pressure analysis by codeML. (e) The final phase (Section 1.10) includes the function codeml_reader (Section 1.10.1) that analyzes the results of the codeML analysis.
 
 
@@ -33,31 +34,45 @@ Command structure
 =================
 
 The VESPA software package was written in python (v2.7) and requires a UNIX environment to operate. VESPA may be invoked as follows: 
-usr$ python vespa.py
+
+:code:`$ python vespa.py`
+
 The VESPA help screen will then be displayed by default. If desired, the help screen may also be displayed using the following commands.
-usr$ python vespa.py help
-usr$ python vespa.py h
+
+:code:`$ python vespa.py help`
+
 In addition to the basic help screen, VESPA has the option to display basic help information for each VESPA command. If desired, the help information may be displayed by specifying the command of interest subsequent to the help screen call (please note the space):
-usr$ python vespa.py help translate
-Commands in VESPA are specified after the program call (i.e. python vespa.py) on the UNIX command-line. Please note a space is required between the program call and the desired command. For example, the translate command would be invoked as shown below:
-usr$ python vespa.py translate
-Commands also require specific options to be invoked to function correctly. Options are specified after the command and begin with a dash symbol (-) and end with an equal sign (=) followed by either a user-specified file or Boolean value (i.e. True/False). For example, the translate command requires the user to specify the input (here “user_data.txt”) as follows:
-usr$ python vespa.py translate -input=user_data.txt
-Please note the space between the command and option, it should also be noted that there is no space separating the option (i.e. “-input=”) and the user-specification (i.e. “user_data.txt”). Multiple options may be invoked on the same command-line as shown below and are separated by a space:
-usr$ python vespa.py translate -input=user_data.txt -cleave_terminal=False
-A comprehensive list of the commands supported in VESPA may be found on Pg. 10 of this manual. 
+
+:code:`$ python vespa.py help translate`
+
+Commands in VESPA are specified after the program call (i.e. :code:`python vespa.py`) on the UNIX command-line. Please note a space is required between the program call and the desired command. For example, the translate command would be invoked as shown below:
+
+:code:`$ python vespa.py translate`
+
+Commands also require specific options to be invoked to function correctly. Options are specified after the command and begin with a dash symbol (-) and end with an equal sign (=) followed by either a user-specified file or Boolean value (i.e. True/False). For example, the translate command requires the user to specify the input (here 'user_data.txt') as follows:
+
+:code:`$ python vespa.py translate -input=user_data.txt`
+
+Please note the space between the command and option, it should also be noted that there is no space separating the option (i.e. :code:`-input=`) and the user-specification (i.e. :code:`user_data.txt`). Multiple options may be invoked on the same command-line as shown below and are separated by a space:
+
+:code:`$ python vespa.py translate -input=user_data.txt -cleave_terminal=False`
 
 
 Basic and required options
 ==========================
 
-Commands in VESPA (see this manual Pg. 10) use two categories of options: basic and command-specific. Basic options may be invoked alongside any command, whereas command-specific options are limited to particular commands. This version of VESPA incorporates two basic options: ‘input’ and ‘output’. 
-The ‘input’ option: This option is invoked by the user to indicate the desired input file or directory for a command. As indicated, this option is designed to function with either: i) an individual file or ii) a directory housing multiple files. Please note that the ‘input’ option is a REQUIRED option and therefore is required by all commands to function. Not specifying the input option will result in VESPA printing a warning message. Please note that ‘USR_INPUT’ is a placeholder for the input defined by the user. 
-usr$ python vespa.py temp_command -input=USR_INPUT
-For example, if a user wanted to analyze the directory “Genomes” they would type:
-usr$ python vespa.py temp_command -input=Genomes
-The ‘output option: This option indicates the desired name the user supplies for the output of a command. Depending on the input used, the option will either specify: i) the output filename (if an individual file was the input), or ii) the output directory name (if a directory was the input). It should be noted that some commands have specialized output, in these cases the desired name will be applied where possible. 
-usr$ python vespa.py command -input=USR_INPUT –output=USR_DEF
+Commands in VESPA (see this manual Pg. 10) use two categories of options: basic and command-specific. Basic options may be invoked alongside any command, whereas command-specific options are limited to particular commands. This version of VESPA incorporates two basic options: 'input' and 'output'. 
+The 'input' option: This option is invoked by the user to indicate the desired input file or directory for a command. As indicated, this option is designed to function with either: *i)* an individual file or *ii)* a directory housing multiple files. Please note that the 'input' option is a REQUIRED option and therefore is required by all commands to function. Not specifying the input option will result in VESPA printing a warning message. Please note that 'USR_INPUT' is a placeholder for the input defined by the user. 
+
+:code:`$ python vespa.py temp_command -input=USR_INPUT`
+
+For example, if a user wanted to analyze the directory 'Genomes' they would type:
+
+:code:`$ python vespa.py temp_command -input=Genomes`
+
+The ‘output option: This option indicates the desired name the user supplies for the output of a command. Depending on the input used, the option will either specify: *i)* the output filename (if an individual file was the input), or *ii)* the output directory name (if a directory was the input). It should be noted that some commands have specialized output, in these cases the desired name will be applied where possible.
+
+:code:`$ python vespa.py command -input=USR_INPUT –output=USR_DEF`
 
 
 VESPA commands

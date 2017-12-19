@@ -12,7 +12,9 @@ The :code:`map_alignments` function is designed to automate the conversion of pr
 ::
 
 	$ python vespa.py map_alignments –input=USR_INPUT –database=USR_DB
+
 .. note::
+
 	Supported file format(s): :code:`-input`: fasta formatted files (nexus and phylip formats to be added in a future release); :code:`-database`: fasta formatted files.
 
 **Overview of the** :code:`map_alignments` **function**
@@ -31,12 +33,16 @@ The :code:`-infer_genetree` function is designed to automate the creation of the
 ::
 
 	$ python vespa.py infer_genetree –input=USR_INPUT –species_tree=USR_INPUT
+
 .. note::
+
 	Command-specific options: The :code:`infer_genetree` function incorporates a single option :code:`-allow_paralogs` that is disabled by default. Normally, :code:`infer_genetree` is designed to only allow a single MSA header to associate with a species name (:numref:`fig_infer_genetree`\d). If multiple headers are found to associate with a species name, VESPA will produce a warning message. The :code:`-allow_paralogs` may be enabled in these situations if the association error(s) are caused by within-species paralogs, in this case a gene tree will be created with associated headers shown as within-species paralogs (:numref:`fig_infer_genetree`\e).
 ::
 
 	$ python vespa.py infer_genetree –input=USR_INPUT –species_tree=USR_INPUT -allow_paralogs=True
+
 .. note::
+
 	Supported file format(s): 'input': fasta formatted files (nexus and phylip formats to be added in a future release); 'species_tree: newick formatted files (nexus tree format to be added in a future release)
 
 **Overview of the** :code:`infer_genetree` **function**
@@ -54,9 +60,10 @@ The :code:`codeml_setup` function is designed to simplify the creation of the co
 ::
 
 	$ python vespa.py codeml_setup –input=USR_INPUT
+
 .. note::
-	Supported file format(s): :code:`input`: newick formatted files (nexus tree format to be added in a future release)
-Command-specific options: If the user has created the optional branch-label table (see :ref:`create_branch`) and enabled the :code:`-label_table` option the function will create the directory structure for the codeML branch-site models. Automating the branch-site models requires a specific directory for each species and/or lineage specified by the user in the optional branch-label table (:numref:`fig_codeml_setup`\a). Next the :code:`setup_codeml` function will produce a codeML :code:`taskfile` that contains each codeML command line command to be computed (:numref:`fig_codeml_setup`\b). Following creation of the taskfile, a separate log file reporting the branch-site models that cannot be tested (due to missing taxa) is produced.
+
+	Supported file format(s): :code:`input`: newick formatted files (nexus tree format to be added in a future release). Command-specific options: If the user has created the optional branch-label table (see :ref:`create_branch`) and enabled the :code:`-label_table` option the function will create the directory structure for the codeML branch-site models. Automating the branch-site models requires a specific directory for each species and/or lineage specified by the user in the optional branch-label table (:numref:`fig_codeml_setup`\a). Next the :code:`setup_codeml` function will produce a codeML :code:`taskfile` that contains each codeML command line command to be computed (:numref:`fig_codeml_setup`\b). Following creation of the taskfile, a separate log file reporting the branch-site models that cannot be tested (due to missing taxa) is produced.
 ::
 
 	$ python vespa.py codeml_setup –input=USR_INPUT –label_table=USR_INPUT
@@ -75,17 +82,21 @@ If phylogenetic reconstruction has been performed by MrBayes then the 'mrbayes_r
 ::
 
 	$ python vespa.py mrbayes_reader –input=USR_INPUT
+
 .. note::	Supported file format(s): :code:`-input` MrBayes standard output format.
 
 
 Subtree function
 ================
 
+
 The :code:`create_subtrees` function is designed for high-throughput tree pruning. This optional step is often required to prune very large multigene family phylogenies into smaller sub-phylogenies. Larger phylogenies may require this pruning step due to feasibility concerns and as subfamilies decrease computational requirements whilst making data easier to manage we have included this optional function. Users may require this option for pruning out SGOs for selection analyses that are focused on single genes. The function operates by displaying the current phylogeny with a set of pruning commands/options. The user is then prompted to select one of the four commands: 'select subtree', 'remove subtree', 'remove leaf', or 'keep original'. If either 'select subtree' or 'remove subtree' is selected, the user is prompted to select a single node (numbered on the displayed phylogeny) for selection or removal respectively (:numref:`fig_create_subtrees`\a-b). If 'remove leaf' is selected, the user is prompted to select a leaf label (sequence header) for removal (:numref:`fig_create_subtrees`\c). If 'keep original' is selected the tree manipulation step is skipped. The 'create_subtrees' function will produce a protein sequence file of the remaining nodes in the phylogeny (:numref:`fig_create_subtrees`\d). The protein sequence file is then required to undergo re-alignment and it proceeds from Phase 3 through the remainder of the pipeline (:numref:`fig_overview`). The 'create_subtrees' function will also produce a separate log file of the original phylogeny, the selected command, and the resulting phylogeny. The 'create_subtrees' function incorporates the non-standard python library dendropy [Sukumaran et al., 2010] (see :ref:`CodeML results assessment`).
 ::
 
 	usr$ python vespa.py create_subtree –input=USR_INPUT
+
 .. note::
+
 	Supported file format(s): 'input': newick formatted files (nexus tree format to be added in version 0.3β)
 
 **Overview of** :code:`create_subtrees` **function**
@@ -103,6 +114,8 @@ The :code:`create_branch` function is designed to simplify the creation of the b
 ::
 
 	$ python vespa.py create_branch –input=USR_INPUT
+
 .. note::
+
 	Supported file format(s): 'input': newick formatted files (nexus tree format to be added in a future release)
 

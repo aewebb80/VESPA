@@ -93,7 +93,7 @@ The third phase of VESPA combines multiple third-party programs (i.e. MetAl [Bla
   #$ -V
   #$ -l h_rt=48:00:00                                                                                                        #$ -l h_vmem=8G                                                                                                            #$ -t 1-426                                                                                                                #$ -tc 426                                                                                                                 #$ -o prank.out                                                                                                            #$ -e prank.err                                                                                                                                                                                                 
   eval ${COMMANDS[$SGE_TASK_ID-1]}
-  
+
   # Put all the output files into a folder Prank_Output_notree in the SGO folder.
   # Prank outputs have short names, need to add the gene ID headers again, use Ray's python script (vespa_ChangeNamesToOriginalLongFormat.py)
   import glob
@@ -135,11 +135,15 @@ Command-specific options: The :code:`metal_compare` function incorporates one ad
 ::
 
   $ python vespa.py metal_compare –input=USR_INPUT -compare=USR_INPUT - metal_cutoff=0.10
+
 .. note::
+
   Supported file format(s): :code:`-input` and :code:`-compare`: fasta formatted files (nexus to be added in a future release).
 
 .. note::
+
   Vespa metAl works if you make sure headers are identical between all the different alignments. (reintroduce long gene ID headers into the Prank alignments). But not for MAFFT – somehow it doesn’t recognize the Mafft alignment. Tried Mafft single line fasta file as well, didn't work. Does not recognize the input format as an alignment
+
 ::
 
   python vespa.py metal_compare -input=Prank_Output_Longnames/ -compare=Muscle_Output/
@@ -152,13 +156,18 @@ The :code:`prottest_setup` function: This function is designed to automate the p
 ::
 
   $ python vespa.py prottest_setup –input=USR_INPUT
+
 .. note::
+
   Supported file format(s): :code:`-input` fasta formatted files (nexus to be added in a future release).
+
 The :code:`prottest_reader` function: This function automates the process of reading the output of ProtTest3. The function creates two output files: best_models.csv and best_supported_models.csv. The best models file reports the best-fit model of amino acid replacement (± rate-heterogeneity) reported by ProtTest3 whereas the best supported file reports the best-fit model of amino acid replacement (± rate-heterogeneity) supported by the third-party phylogenetic reconstruction program MrBayes [Ronquist and Huelsenbeck, 2003]. The two output files are given to enable the user to use different phylogenetic reconstruction software if desired.
 ::
 
   usr$ python vespa.py prottest_reader –input=USR_INPUT
+
 .. note::
+
   Supported file format(s): :code:`-input`: prottest3 standard output format.
 
 
@@ -169,10 +178,14 @@ The :code:`mrbayes_setup` function (:numref:`fig_mrbayes_setup`) is designed to 
 ::
 
   $ python vespa.py mrbayes_setup –input=USR_INPUT –model_list=MODEL_DATA
+
 .. note::
+
   Supported file format(s): :code:`input`: fasta formatted files (nexus and phylip formats to be added in a future release).
+
 Command-specific options: The :code:`mrbayes_setup` function incorporates multiple options (:code:`-mcmc_gen`, :code:`-mcmc_chains`, :code:`-mcmc_temp`, :code:`-mcmc_burnin`) for permitting the user to alter variables within the MrBayes command block (:numref:`fig_mrbayes_setup`\b-d). The :code:`mcmc_gen` option sets the number of generations for the phylogenetic reconstruction and should be increased from the default value of 200,000 if previous attempts failed to converge. The remaining options have the following recommended settings by default: :code:`mcmc_chains` i.e. the number of chains (default = 4), :code:`mcmc_temp` i.e. the temperature of the heated chain (default = 0.2), and :code:`mcmc_burnin`, i.e. the burn-in percentage respectfully (default = 0.25).
 ::
+
   $ python vespa.py mrbayes_setup –input=USR_INPUT –model_list=MODEL_DATA -mcmc_gen=100000
   $ python vespa.py mrbayes_setup –input=USR_INPUT –model_list=MODEL_DATA -mcmc_chains=6
   $ python vespa.py mrbayes_setup –input=USR_INPUT –model_list=MODEL_DATA -mcmc_temp=0.3
@@ -183,7 +196,6 @@ Overview of :code:`mrbayes_setup`.
 
 .. _fig_mrbayes_setup:
 .. figure:: images/mrbayes_setup.png
-
 
 The MrBayes input file is described as follows: (a) The NEXUS file is separated into two blocks, a sequence alignment block and a MrBayes command block. (b) The specific commands within the MrBayes command block are each assigned default values (in bold) based on recommend values and previous commands. (c) The commands lset and prset by default are automatically assigned by VESPA from the :code:`best_supported_models.csv` file (see :ref:`Empirical model selection functions`) specified by the :code:`model_list` option. (d) The remaining commands are assigned based on recommended values, but may configured by the user is desired.
 
