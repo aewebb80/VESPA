@@ -1,63 +1,66 @@
-# VESPA
-VESPA: Very large-scale Evolutionary and Selective Pressure Analyses
+# VESPA: Very large-scale Evolutionary and Selective Pressure Analyses
+Thanks for taking an interest in our pipeline. We hope you find the resources we provide here useful in getting you set up to analyse and interpret your data.
 
-Thanks for taking an interest in our pipeline. Everything you need to use this software is on this page. 
-We hope you find the resources we provide here useful in getting you set up to analyse and interpret your data.
+
 
 To reference VESPA: https://peerj.com/preprints/1895/
 
-The VESPA software is released under the GNU general public license.
+Documentation is now hosted on [ReadTheDocs](http://vespa-evol.readthedocs.io/en/latest/)
 
 
-Installing VESPA:
 
-VESPA1.0b is written in python and therefore should be compatible with most systems.
+## Installation
 
-The VESPA software is available to download on GitHub from the following link:
+The main VESPA wrapper is written in Python, while the CodeML wrapper is written in Perl.
 
-Once downloaded, it can be installed as follows:
+To begin, we recommend downloading a versioned tarball from the releases page.
 
+Once downloaded, install as follows:
+
+```
 $ tar -xvzf VESPA.tar.gz
-
 $ cd VESPA
-
 $ chmod +x vespa.py
-
 $ sudo mv vespa.py /usr/local/bin
+```
 
 
-Dependencies:
 
-Perl dependencies:
 
-VESPA requires users to install multiple perl scripts and modules to be fully operational. 
-The perl dependencies may be found alongside vespa.py within the program tarball. 
+### Dependencies
 
-Once downloaded, it can be installed as follows:
+**Perl dependencies**
 
+VESPA requires several Perl scripts and modules to be fully operational. 
+The Perl dependencies may be found alongside `vespa.py` within the tarball. 
+
+The following will install these modules on most systems.
+
+```
 $ tar -xvzf VESPA.tar.gz
-
 $ cd VESPA
-
 $ chmod +x \*Codeml\*.pl
-
 $ sudo mv \*Codeml\*.pl /usr/local/bin
-
-
 $ sudo mv CodemlWrapper/ /Library/Perl/5.XX/
 Note: Replace “5.XX” in the following command to the version of perl used by your system. (perl –v)
+```
 
-DendroPy: 
 
-VESPA requires users to install the DendroPy python library (version 4.0). 
-Instructions to installing DendroPy can be found at the following link: https://pythonhosted.org/DendroPy/#installing
+
+**DendroPy** 
+
+VESPA requires users to install the DendroPy Python library (version 4.0). 
+[Instructions for installing DendroPy](https://pythonhosted.org/DendroPy/#installing)
 
  
 
-Using VESPA:
+## Using VESPA
 
-We have written a manual that will take you through the process step by step. 
-Please download the manual from here “Your_VESPA_Manual“. And follow the steps. 
-If you have any difficulty please let us know. To get started we highly recommend 
-you take our tutorial located here “VESPA_Tutorials.tar.gz“, which is specially
-designed for the new user.
+We have written [a manual](http://vespa-evol.readthedocs.io/en/latest/) that will take you through the process step by step. 
+This is constantly evolving with feedback with feedback from our users, and the latest version is hosted as [vespa-evol on ReadTheDocs](http://vespa-evol.readthedocs.io/en/latest/).
+
+
+
+## Issues
+
+If you encounter an issue with VESPA, please open a GitHub issue and we'll do our best to help.
