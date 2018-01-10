@@ -1,5 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 use strict;
+use warnings;
 use Carp qw(carp cluck croak confess);
 #CodemlWrapper::Alignment v1.01 by Tom Walsh (2012/07/12)
 
