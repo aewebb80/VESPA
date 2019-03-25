@@ -26,6 +26,17 @@ $ sudo mv vespa.py /usr/local/bin
 
 
 
+## Easier installation with Anaconda (new)
+
+This approach installs many but not all of the binary dependencies
+
+- Install Anaconda or [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+- Download release, decompress and `cd` inside it
+- Create the conda environment: `conda env create -f vespa_conda.yml`
+- Activate it: `source activate vespa27`
+- Run VESPA with `python vespa.py`
+
+
 
 ### Dependencies
 
