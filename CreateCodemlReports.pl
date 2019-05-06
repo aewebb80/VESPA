@@ -1,5 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 use strict;
+use warnings;
 use CodemlWrapper::Job;
 #CreateCodemlReports v1.0 by Tom Walsh (2012/03/28)
 
